@@ -14,6 +14,9 @@ public class ItemCell : CenterContainer
             if(value == null){
                 ChangeCount(0);
                 ChangeTexture(null);
+            }else{
+                ChangeCount(__Item.ItemCount);
+                ChangeTexture(__Item.ItemTexture);
             }
         }
     }
@@ -22,12 +25,19 @@ public class ItemCell : CenterContainer
     private SingInventory SI;
 
     private void ChangeTexture(Texture texture){
+        if(_Item != null){
+            _Item.ItemTexture = texture;
+        }
         GetNode<Sprite>("Item/Sprite").Texture = texture;
     }
     private void ChangeCount(int count){
-        GD.Print(count);
-        GetNode<Label>("Item/ItemCount").Text = count.ToString();
-        if(count <= 0){
+        if(_Item != null){
+            _Item.ItemCount = count;
+        }
+        if(count > 0){
+            GetNode<Label>("Item/ItemCount").Text = count.ToString();
+        }
+        else{
             GetNode<Label>("Item/ItemCount").Text = "";
         }
     }
@@ -57,10 +67,11 @@ public class ItemCell : CenterContainer
     }
 
     public void _on_TextureButton_pressed(){
-        if(!SI.isTaken){
+        if(!SI.isTaken && _Item != null){
             TakeItem();
         }else{
-            if(SI.si != null){
+            if(SI.si != null && _Item != null){
+                //If have selected item
                 if(SI.si.item.ItemType == _Item.ItemType &&
                     SI.si.item.ItemTexture == _Item.ItemTexture &&
                     SI.si.item.ItemName == _Item.ItemName){
@@ -78,6 +89,13 @@ public class ItemCell : CenterContainer
                         
                     SI.si.ItemCount = _c;
                 }
+                //Else if have't selected item
+                else if(_Item == null && SI.si != null){
+                    GD.Print(123);
+                    _Item = SI.si.item;
+                    SI.si = null;
+                }
+
             }
         }
     }

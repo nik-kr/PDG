@@ -19,7 +19,6 @@ public class SingInventory : Node
             if(TakeMode == "ALL"){
                 ic._Item = null;
             }
-            ic._Item = null;
             ic.GetParent().GetParent().AddChild(si);
         }else{
 

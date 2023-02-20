@@ -4,28 +4,40 @@ using System;
 public class SelectItem : Sprite
 {
 
-    public Item item;
-    private SingInventory SI;
-
-    private Texture _ItemTexture;
-    public Texture ItemTexture{
+    private Item _item;
+    public Item item{
         get{
-            return _ItemTexture;
+            return _item;
         }
         set{
-            _ItemTexture = value;
-            GetNode<Sprite>(".").Texture = _ItemTexture;
+            _item = value;
+            if(_item == null){
+                SI.isTaken = false;
+                this.QueueFree();
+            }
         }
     }
-    private int _ItemCount;
-    public int ItemCount{
+
+    private SingInventory SI;
+
+    public Texture ItemTexture{
         get{
-            return _ItemCount;
+            return item.ItemTexture;
         }
         set{
-            _ItemCount = value;
-            GetNode<Label>("ItemCount").Text = _ItemCount.ToString();
-            if(_ItemCount <= 0){
+            item.ItemTexture = value;
+            GetNode<Sprite>(".").Texture = item.ItemTexture;
+        }
+    }
+
+    public int ItemCount{
+        get{
+            return item.ItemCount;
+        }
+        set{
+            item.ItemCount = value;
+            GetNode<Label>("ItemCount").Text = item.ItemCount.ToString();
+            if(item.ItemCount <= 0){
                 SI.isTaken = false;
                 this.QueueFree();
             }
