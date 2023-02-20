@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Resources/GUI/Invenroty/InventoryPanel.png" type="Texture" id=1]
 [ext_resource path="res://Node/GUI/Inventory/ItemCell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Resources/GUI/Invenroty/EmptyCell.png" type="Texture" id=3]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 1 )
@@ -28,6 +29,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell2" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.11017
@@ -38,6 +40,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell3" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.293785
@@ -48,6 +51,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell4" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.468927
@@ -58,6 +62,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell5" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.646893
@@ -68,6 +73,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell6" parent="." instance=ExtResource( 2 )]
 anchor_left = -0.0649718
@@ -78,6 +84,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell7" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.112994
@@ -88,6 +95,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell8" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.293785
@@ -98,6 +106,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell9" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.466102
@@ -108,6 +117,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell10" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.644068
@@ -118,6 +128,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell11" parent="." instance=ExtResource( 2 )]
 anchor_left = -0.0649718
@@ -128,6 +139,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell12" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.112994
@@ -138,6 +150,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell13" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.288136
@@ -148,6 +161,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell14" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.466102
@@ -158,6 +172,7 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
 
 [node name="ItemCell15" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.649718
@@ -168,3 +183,76 @@ margin_left = 14.6667
 margin_top = 57.6667
 margin_right = 32.362
 margin_bottom = 73.5333
+CellBackground = ExtResource( 3 )
+
+[node name="ItemCell16" parent="." instance=ExtResource( 2 )]
+anchor_left = -0.0790961
+anchor_top = -0.0645161
+anchor_right = -0.0595648
+anchor_bottom = -0.0311828
+margin_left = 16.6667
+margin_top = 15.3333
+margin_right = 34.362
+margin_bottom = 31.2
+rect_pivot_offset = Vector2( 5.66666, 22 )
+CurrentItem = "Helmet"
+
+[node name="ItemCell17" parent="." instance=ExtResource( 2 )]
+anchor_left = -0.0790961
+anchor_top = 0.110215
+anchor_right = -0.0595648
+anchor_bottom = 0.143548
+margin_left = 16.6667
+margin_top = 15.3333
+margin_right = 34.362
+margin_bottom = 31.2
+rect_pivot_offset = Vector2( 5.66666, 22 )
+CurrentItem = "Chestplate"
+
+[node name="ItemCell18" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.248588
+anchor_top = -0.0698925
+anchor_right = 0.268119
+anchor_bottom = -0.0365592
+margin_left = 16.6667
+margin_top = 15.3333
+margin_right = 34.362
+margin_bottom = 31.2
+rect_pivot_offset = Vector2( 5.66666, 22 )
+CurrentItem = "Artefact"
+
+[node name="ItemCell19" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.251412
+anchor_top = 0.110215
+anchor_right = 0.270944
+anchor_bottom = 0.143548
+margin_left = 16.6667
+margin_top = 15.3333
+margin_right = 34.362
+margin_bottom = 31.2
+rect_pivot_offset = Vector2( 5.66666, 22 )
+CurrentItem = "Boots"
+
+[node name="ItemCell20" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.618644
+anchor_top = -0.0672043
+anchor_right = 0.638175
+anchor_bottom = -0.033871
+margin_left = 16.6667
+margin_top = 15.3333
+margin_right = 34.362
+margin_bottom = 31.2
+rect_pivot_offset = Vector2( 5.66666, 22 )
+CurrentItem = "Weapon"
+
+[node name="ItemCell21" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.621469
+anchor_top = 0.110215
+anchor_right = 0.641
+anchor_bottom = 0.143548
+margin_left = 16.6667
+margin_top = 15.3333
+margin_right = 34.362
+margin_bottom = 31.2
+rect_pivot_offset = Vector2( 5.66666, 22 )
+CurrentItem = "Gem"

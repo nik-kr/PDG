@@ -4,6 +4,13 @@ using System;
 public class ItemCell : CenterContainer
 {
 
+    [Export]
+    public Texture CellBackground;
+
+    [Export(PropertyHint.EnumSuggestion, "*,Helmet,Weapon,Boots,Chestplate,Gem,Artefact")]
+    public String CurrentItem = "*";
+
+
     private Item __Item;
     public Item _Item{
         get{
@@ -34,7 +41,7 @@ public class ItemCell : CenterContainer
         if(_Item != null){
             _Item.ItemCount = count;
         }
-        if(count > 0){
+        if(count > 1){
             GetNode<Label>("Item/ItemCount").Text = count.ToString();
         }
         else{
@@ -43,12 +50,37 @@ public class ItemCell : CenterContainer
     }
 
     public override void _Ready(){
+        GD.Randomize();
         GI = GetNode<Singletone>("/root/GlobalSingletone");
         SI = GetNode<SingInventory>("/root/SingInventory");
-        if(GI.DebugMode){
+        if(GI.DebugMode && CurrentItem == "*"){
             var di = GD.Load<PackedScene>("res://Node/Items/DebugItem.tscn").Instance<DebugItem>();
             di.ItemCount = (int)GD.RandRange(0, 99);
             AddItem(di);
+        }
+        switch(CurrentItem){
+            // "*,Helmet,Weapon,Boots,Chestplate,Gem,"
+            case "*":
+                GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/EmptyCell.png");
+                break;
+            case "Helmet":
+                GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/HelmetCell.png");
+                break;
+            case "Weapon":
+                GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/WeaponCell.png");
+                break;
+            case "Boots":
+                GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/BootsCell.png");
+                break;
+            case "Chestplate":
+                GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/ChestplateCell.png");
+                break;
+            case "Gem":
+                GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/GemCell.png");
+                break;
+            case "Artefact":
+                GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/ArtefactCell.png");
+                break;
         }
     }
     public void AddItem(Item item){
@@ -69,14 +101,16 @@ public class ItemCell : CenterContainer
     public void _on_TextureButton_pressed(){
         if(!SI.isTaken && _Item != null){
             TakeItem();
-        }else{
-            if(SI.si != null && _Item != null){
+        }
+        else if (SI.isTaken){
+            if(_Item != null){
                 //If have selected item
-                if(SI.si.item.ItemType == _Item.ItemType &&
+                if(SI.si != null && SI.si.item.ItemType == _Item.ItemType &&
                     SI.si.item.ItemTexture == _Item.ItemTexture &&
                     SI.si.item.ItemName == _Item.ItemName){
                     int c = 0;
                     int _c = 0;
+                    if(CurrentItem == "*" || CurrentItem == SI.si.item.ItemType || _Item.ItemType == SI.si.item.ItemType){
                         if(_Item.ItemCount + SI.si.item.ItemCount <= _Item.maxItemStack){
                             c = _Item.ItemCount + SI.si.item.ItemCount;
                             _c = SI.si.ItemCount - (c - _Item.ItemCount);
@@ -86,16 +120,21 @@ public class ItemCell : CenterContainer
                             _c = SI.si.ItemCount - (c - _Item.ItemCount);
                             ChangeCount(c);
                         }
-                        
                     SI.si.ItemCount = _c;
-                }
-                //Else if have't selected item
-                else if(_Item == null && SI.si != null){
-                    GD.Print(123);
-                    _Item = SI.si.item;
-                    SI.si = null;
+                    }
+                        
                 }
 
+            }
+            //Else if have't selected item
+            else if(_Item == null && SI.si != null){
+                if(CurrentItem == "*" || CurrentItem == SI.si.item.ItemType){
+                    GD.Print(123);
+                    _Item = SI.si.item;
+                    SI.si.QueueFree();
+                    SI.si = null;
+                    SI.isTaken = false;
+                }
             }
         }
     }

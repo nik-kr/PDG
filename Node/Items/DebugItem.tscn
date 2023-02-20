@@ -10,7 +10,6 @@ extents = Vector2( 8, 8 )
 script = ExtResource( 2 )
 ItemTexture = ExtResource( 1 )
 ItemCount = 60
-ItemType = "Item"
 ItemName = "DebugItem"
 ItemDescription = "Debug Item"
 maxItemStack = 99

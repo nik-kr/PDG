@@ -13,6 +13,7 @@ public class SelectItem : Sprite
             _item = value;
             if(_item == null){
                 SI.isTaken = false;
+                SI.si = null;
                 this.QueueFree();
             }
         }
@@ -39,6 +40,7 @@ public class SelectItem : Sprite
             GetNode<Label>("ItemCount").Text = item.ItemCount.ToString();
             if(item.ItemCount <= 0){
                 SI.isTaken = false;
+                SI.si = null;
                 this.QueueFree();
             }
         }

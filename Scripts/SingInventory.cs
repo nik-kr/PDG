@@ -11,14 +11,15 @@ public class SingInventory : Node
         Item item;
         if(!isTaken){
             item = ic._Item;
+            ic._Item = null;
+            if(TakeMode == "ALL"){
+                ic._Item = null;
+            }
             si = p_si.Instance<SelectItem>();
             si.item = item;
             si.ItemCount = item.ItemCount;
             si.ItemTexture = item.ItemTexture;
             isTaken = true;
-            if(TakeMode == "ALL"){
-                ic._Item = null;
-            }
             ic.GetParent().GetParent().AddChild(si);
         }else{
 
