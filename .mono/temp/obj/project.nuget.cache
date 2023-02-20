@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Y+ALKpaCuqevpZbHPeprO1mja4ilBdfIPFlTcj4J3VT47u8s0twpqCc/pM8m+FnhoZWvftHxEX6M9BlrVIQDWw==",
+  "success": true,
+  "projectFilePath": "/home/nekiuriti/.project/godot/PDG/test1.csproj",
+  "expectedPackageFiles": [
+    "/home/nekiuriti/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.2/microsoft.netframework.referenceassemblies.1.0.2.nupkg.sha512",
+    "/home/nekiuriti/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.2/microsoft.netframework.referenceassemblies.net472.1.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

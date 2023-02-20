@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Node/GUI/Inventory/Inventory.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Resources/GUI/Invenroty/InventoryPanel.png" type="Texture" id=2]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 118, 124 )
+
+[node name="test" type="Control"]
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 987.0
+margin_bottom = 536.0
+custom_styles/panel = SubResource( 1 )
+
+[node name="Inventory" parent="." instance=ExtResource( 1 )]
+margin_left = 1.0
+margin_top = -3.0
+margin_right = 1.0
+margin_bottom = -3.0

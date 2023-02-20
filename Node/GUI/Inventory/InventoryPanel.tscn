@@ -1,0 +1,170 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Resources/GUI/Invenroty/InventoryPanel.png" type="Texture" id=1]
+[ext_resource path="res://Node/GUI/Inventory/ItemCell.tscn" type="PackedScene" id=2]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 118, 124 )
+
+[node name="InventoryPanel" type="Panel"]
+anchor_left = 0.173
+anchor_top = 0.31
+anchor_right = 0.173
+anchor_bottom = 0.31
+margin_left = -177.152
+margin_top = -186.0
+margin_right = -59.152
+margin_bottom = -62.0
+rect_scale = Vector2( 3, 3 )
+custom_styles/panel = SubResource( 1 )
+
+[node name="ItemCell" parent="." instance=ExtResource( 2 )]
+anchor_left = -0.0621469
+anchor_top = -0.0430108
+anchor_right = -0.0426157
+anchor_bottom = -0.00967746
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell2" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.11017
+anchor_top = -0.0430108
+anchor_right = 0.129701
+anchor_bottom = -0.00967752
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell3" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.293785
+anchor_top = -0.0456989
+anchor_right = 0.313316
+anchor_bottom = -0.0123656
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell4" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.468927
+anchor_top = -0.0456989
+anchor_right = 0.488458
+anchor_bottom = -0.0123656
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell5" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.646893
+anchor_top = -0.045699
+anchor_right = 0.666424
+anchor_bottom = -0.0123657
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell6" parent="." instance=ExtResource( 2 )]
+anchor_left = -0.0649718
+anchor_top = 0.120968
+anchor_right = -0.0454406
+anchor_bottom = 0.154301
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell7" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.112994
+anchor_top = 0.123656
+anchor_right = 0.132526
+anchor_bottom = 0.156989
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell8" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.293785
+anchor_top = 0.120968
+anchor_right = 0.313316
+anchor_bottom = 0.154301
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell9" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.466102
+anchor_top = 0.120968
+anchor_right = 0.485633
+anchor_bottom = 0.154301
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell10" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.644068
+anchor_top = 0.123656
+anchor_right = 0.663599
+anchor_bottom = 0.156989
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell11" parent="." instance=ExtResource( 2 )]
+anchor_left = -0.0649718
+anchor_top = 0.293011
+anchor_right = -0.0454406
+anchor_bottom = 0.326344
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell12" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.112994
+anchor_top = 0.290323
+anchor_right = 0.132526
+anchor_bottom = 0.323656
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell13" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.288136
+anchor_top = 0.293011
+anchor_right = 0.307667
+anchor_bottom = 0.326344
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell14" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.466102
+anchor_top = 0.290323
+anchor_right = 0.485633
+anchor_bottom = 0.323656
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
+
+[node name="ItemCell15" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.649718
+anchor_top = 0.293011
+anchor_right = 0.669249
+anchor_bottom = 0.326344
+margin_left = 14.6667
+margin_top = 57.6667
+margin_right = 32.362
+margin_bottom = 73.5333
