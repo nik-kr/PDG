@@ -10,6 +10,9 @@ public class ItemCell : CenterContainer
     [Export(PropertyHint.EnumSuggestion, "*,Helmet,Weapon,Boots,Chestplate,Gem,Artefact")]
     public String CurrentItem = "*";
 
+    [Export(PropertyHint.EnumSuggestion, "Default,Chest")]
+    public String InvType = "Default";
+
 
     private Item __Item;
     public Item _Item{
@@ -61,7 +64,11 @@ public class ItemCell : CenterContainer
         switch(CurrentItem){
             // "*,Helmet,Weapon,Boots,Chestplate,Gem,"
             case "*":
-                GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/EmptyCell.png");
+                if(InvType == "Default"){
+                    GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/EmptyCell.png");
+                }else if(InvType == "Chest"){
+                    GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/EmptyChestCell.png");
+                }
                 break;
             case "Helmet":
                 GetNode<TextureButton>("TextureButton").TextureNormal = GD.Load<Texture>("res://Resources/GUI/Invenroty/HelmetCell.png");

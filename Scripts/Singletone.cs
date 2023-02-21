@@ -29,7 +29,7 @@ public class Singletone : Node
     public float Secrecy;
 
     //!GameSettings
-    public bool DebugMode = true;
+    public bool DebugMode = false;
 
     //?Debug
     public Texture debugItemTexture = (Texture)GD.Load("res://Sprite/GameResources/Debug/DebugItem.png");

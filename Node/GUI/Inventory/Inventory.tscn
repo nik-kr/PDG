@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Node/GUI/Inventory/InventoryPanel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Node/GUI/Inventory/InventoryTab.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Node/GUI/Inventory/Inventory.cs" type="Script" id=3]
+[ext_resource path="res://Node/GUI/Inventory/ChestIncentory.tscn" type="PackedScene" id=4]
 
 [sub_resource type="ShaderMaterial" id=1]
 
@@ -25,6 +26,9 @@ material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 300.0 ]
+}
 
 [node name="Bloor" type="Panel" parent="."]
 material = SubResource( 3 )
@@ -45,7 +49,7 @@ anchor_bottom = 0.5
 margin_left = -177.0
 margin_right = -59.0
 
-[node name="InventoryTab" parent="." instance=ExtResource( 2 )]
+[node name="InventoryTab" parent="Panels" instance=ExtResource( 2 )]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -54,3 +58,12 @@ margin_left = -177.0
 margin_top = 186.0
 margin_right = -21.0
 margin_bottom = 237.0
+
+[node name="ChestIncentory" parent="Panels" instance=ExtResource( 4 )]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -312.0
+margin_right = -222.0
