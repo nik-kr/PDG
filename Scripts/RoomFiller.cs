@@ -30,7 +30,7 @@ public class RoomFiller : Node
             // Ladder.GlobalPosition = _Room.Position;
             Ladder.ToLocal(new Vector2((Position1.x + Position2.x)/2,
                                             Position1.y + Position2.y)/2);
-        }else if(GS.Level <= 5){
+        }else if(GS.level <= 5){
             String []_Items = {"", "Chest", "Skeleton"};
             float []_Weights = {0.98f, 0.002f, 0.06f};
 

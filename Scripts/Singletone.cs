@@ -5,12 +5,12 @@ public class Singletone : Node
 {
     public ProgressBar HPBar;
     public Level LevelNode;
-    public int Level = 1;
+    public int level = 1;
     
     public PackedScene _PacWarrior = (PackedScene)ResourceLoader.Load("res://Node/Character/Warrior/Warrior.tscn");
     public String Character;
 
-    public CanvasItem GUI;
+    public CanvasLayer GUI;
 
     public int TileSize = 16;
 

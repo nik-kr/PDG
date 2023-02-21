@@ -23,7 +23,7 @@ public class Level : Node2D
     private bool drawAstarLine = true;
 
     //Any Variable
-    private int LEVEL;
+    public int LEVEL;
     private Room startRoom;
     private Room endRoom;
     private bool playMode = false;
