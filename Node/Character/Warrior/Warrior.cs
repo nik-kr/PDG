@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Warrior : KinematicBody2D
+public class Warrior : Player
 {
     [Export]
     public String NodeType = "Player";
@@ -16,6 +16,8 @@ public class Warrior : KinematicBody2D
     public Control DebugMenu;
 
     private PackedScene footprint = (PackedScene)GD.Load("res://Node/Character/Footprint.tscn");
+    private Singletone GS;
+    public AnimatedSprite animatedSprite;
 
     public override void _Ready()
     {
@@ -23,6 +25,8 @@ public class Warrior : KinematicBody2D
         foreach(Control c in GetTree().GetNodesInGroup("DebugMenu")){
             DebugMenu = c;
         }
+        GS = GetNode<Singletone>("/root/GlobalSingletone");
+        animatedSprite = GetNode<AnimatedSprite>("./AnimatedSprite");
     }
     public void giveDamageCallback(float damage){
         HealthPoint -= damage;
@@ -34,29 +38,40 @@ public class Warrior : KinematicBody2D
     {
         velocity = new Vector2();
 
-        if (Input.IsActionPressed("ui_right"))
+        if (Input.IsActionPressed("ui_right")){
             velocity.x += 1;
+            animatedSprite.Play("Right");
+            }
 
-        if (Input.IsActionPressed("ui_left"))
+        if (Input.IsActionPressed("ui_left")){
             velocity.x -= 1;
+            animatedSprite.Play("Left");
+            }
 
-        if (Input.IsActionPressed("ui_down"))
+        if (Input.IsActionPressed("ui_down")){
             velocity.y += 1;
+            animatedSprite.Play("Down");
+            }
 
-        if (Input.IsActionPressed("ui_up"))
+        if (Input.IsActionPressed("ui_up")){
             velocity.y -= 1;
+            animatedSprite.Play("Up");}
         if (Input.IsActionPressed("ui_attack"))
         {
             this.GetNode<Node2D>("Weapon").LookAt(GetGlobalMousePosition());
             this.GetNode<Weapon>("Weapon/Weapon").Attack();
         }
 
-        velocity = velocity.Normalized() * speed;
+        velocity =  velocity.Normalized() * speed;
     }
 
     public override void _PhysicsProcess(float delta)
     {
         GetInput();
+        if(velocity == new Vector2(0, 0)){
+            animatedSprite.Play("Stay");
+        }
+
         velocity = MoveAndSlide(velocity);
         DebugMenu.GetNode<Label>("PlayerPosition").Text = (
             "PLAYER POSITION\nX: " + GlobalPosition.x.ToString() +
@@ -66,5 +81,18 @@ public class Warrior : KinematicBody2D
         Footprint f = (Footprint)footprint.Instance();
         f.Position = Position;
         GetParent().AddChild(f);
+    }
+
+    public void _on_DetectZone_area_entered(Area2D area){
+        if(area.IsInGroup("Item")){
+            ((Item)area).Collect(this);
+        }
+    }
+    public void _on_CollectZone_area_entered(Area2D area){
+        if (area.IsInGroup("Item") && !GS.Inv.FullInventory){
+            var a = (Item)area;
+            GS.Inv.CollectItem(a);
+            area.QueueFree();
+        }
     }
 }

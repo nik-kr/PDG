@@ -15,7 +15,7 @@ public class Level : Node2D
     private PackedScene _Room_l = (PackedScene)GD.Load("res://Node/Room/Room.tscn");
     private Room _Room;
     private TileMap Map;
-    private KinematicBody2D Player;
+    private Player player;
     private Camera2D PreloadCamera;
     //DebugParameters
     private bool debugMode = false;
@@ -73,8 +73,8 @@ public class Level : Node2D
         // GD.Print(ast.GetPoints().GetType().ToString());
         if (GS.Character == "Warrior")
         {
-            Player = (KinematicBody2D)GS._PacWarrior.Instance();
-            Player.Name = "Player";
+            player = (Player)GS._PacWarrior.Instance();
+            player.Name = "player";
         }
         GD.Randomize();
         MakeRooms();
@@ -121,8 +121,9 @@ public class Level : Node2D
         findStartRoom();
 
         PreloadCamera.Visible = false;
-        startRoom.AddChild(Player);
-        Player.GlobalPosition = startRoom.Position;
+        startRoom.AddChild(player);
+        GS.player = player;
+        player.GlobalPosition = startRoom.Position;
         playMode = true;
 
 

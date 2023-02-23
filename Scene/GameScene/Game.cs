@@ -35,6 +35,8 @@ public class Game : Node
         Inv = GetNode<Inventory>("GUI/Control/Inventory");
 
         level = GS.level;
+
+        GS.Inv = Inv;
         GS.HPBar = HPbar;
         GS.GUI = GetNode<CanvasLayer>("GUI");
         UpdateLevel();

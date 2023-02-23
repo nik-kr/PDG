@@ -4,11 +4,13 @@ using System;
 public class Singletone : Node
 {
     public ProgressBar HPBar;
+    public Inventory Inv;
     public Level LevelNode;
     public int level = 1;
     
     public PackedScene _PacWarrior = (PackedScene)ResourceLoader.Load("res://Node/Character/Warrior/Warrior.tscn");
     public String Character;
+    public Player player = new Player();
 
     public CanvasLayer GUI;
 

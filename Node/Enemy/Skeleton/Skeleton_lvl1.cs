@@ -18,6 +18,7 @@ public class Skeleton_lvl1 : Enemy
     private Timer HitTimer;
     private KinematicBody2D Player;
     private Singletone GS;
+    private AnimatedSprite animationSprite;
 
     private Vector2 direction = Vector2.Zero;
 
@@ -26,6 +27,7 @@ public class Skeleton_lvl1 : Enemy
 
     public override void _Ready()
     {
+        animationSprite = GetNode<AnimatedSprite>("AnimatedSprite");
         MaxHealthPoint = 10; HealthPoint = 5;
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         deathAnimName = "death";
@@ -46,6 +48,23 @@ public class Skeleton_lvl1 : Enemy
             Vector2 steering = (desiredVelocity - velocity) * delta * 4f;
             velocity += steering;
             velocity = MoveAndSlide(velocity);
+            float deg2fp = Godot.Mathf.Rad2Deg(GlobalPosition.AngleToPoint(_Footprint.GlobalPosition));
+            GD.Print(deg2fp);
+            if(deg2fp>=45 && deg2fp <= 150){
+                animationSprite.Play("Up");
+                GD.Print("UP");
+            }else if(deg2fp>=150 && deg2fp >= -135){
+                animationSprite.Play("Right");
+                GD.Print("Right");
+            }else if(deg2fp>=-135 && deg2fp <= -60){
+                animationSprite.Play("Down");
+                GD.Print("Down");
+            }else if(deg2fp>=-60 && deg2fp <= 45){
+                animationSprite.Play("Left");
+                GD.Print("Left");
+            }
+        }else{
+            animationSprite.Play("Stay");
         }
     }
     public void _on_DetectionZone_area_entered(Area2D area){

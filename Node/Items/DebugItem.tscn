@@ -6,7 +6,8 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
 
-[node name="DebugItem" type="Area2D"]
+[node name="DebugItem" type="Area2D" groups=["Item"]]
+z_index = -2
 script = ExtResource( 2 )
 ItemTexture = ExtResource( 1 )
 ItemCount = 60

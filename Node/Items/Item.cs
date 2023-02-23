@@ -20,4 +20,25 @@ public class Item : Area2D
 
     [Export]
     public int maxItemStack;
+
+    private bool doCollect = false;
+
+    private Player player;
+    public Singletone GS;
+
+    public override void _PhysicsProcess(float delta){
+        if(doCollect && player != null){
+            GlobalPosition = GlobalPosition.MoveToward(player.GlobalPosition, 150 * delta);
+            if(Scale.x >= 0.5){
+                Scale -= new Vector2(delta, delta);
+            }
+        }
+    }
+
+    public void Collect(Player p){
+        if(!GS.Inv.FullInventory){
+            player = p;
+            doCollect = true;
+        }
+    }
 }

@@ -14,7 +14,7 @@ public class ItemCell : CenterContainer
     public String InvType = "Default";
 
 
-    private Item __Item;
+    private Item __Item = null;
     public Item _Item{
         get{
             return __Item;
@@ -90,11 +90,31 @@ public class ItemCell : CenterContainer
                 break;
         }
     }
-    public void AddItem(Item item){
-        _Item = item;
-        ChangeTexture(item.ItemTexture);
-        ChangeCount(item.ItemCount);
+    public int AddItem(Item item){
+        int count = item.ItemCount;
+        if ((_Item == null && CurrentItem == item.ItemType) || (_Item == null && CurrentItem == "*")){
+            _Item = item;
+            ChangeTexture(item.ItemTexture);
+            ChangeCount(item.ItemCount);
+            return 0;
+        }
+        else if (_Item != null){
+            if(_Item.ItemType == item.ItemType && _Item.ItemTexture == item.ItemTexture && _Item.ItemName == item.ItemName){
+                int maxI = _Item.maxItemStack;
+                int c = (_Item.ItemCount + item.ItemCount);
+                if(c <= maxI){
+                    ChangeCount(_Item.ItemCount + item.ItemCount);
+                    return 0;
+                }else{
+                    ChangeCount(_Item.maxItemStack);
+                    return c - maxI;
+                }
+            }else{
+                return count;
+            }
+        }
 
+        return count;
     }
     public Item TakeItem(String TakeMode = "ALL", int count = 1){
         Item item = _Item;
@@ -137,7 +157,8 @@ public class ItemCell : CenterContainer
             else if(_Item == null && SI.si != null){
                 if(CurrentItem == "*" || CurrentItem == SI.si.item.ItemType){
                     GD.Print(123);
-                    _Item = SI.si.item;
+                    AddItem(SI.si.item);
+                    // _Item = SI.si.item;
                     SI.si.QueueFree();
                     SI.si = null;
                     SI.isTaken = false;

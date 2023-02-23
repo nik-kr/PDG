@@ -31,12 +31,13 @@ public class RoomFiller : Node
             Ladder.ToLocal(new Vector2((Position1.x + Position2.x)/2,
                                             Position1.y + Position2.y)/2);
         }else if(GS.level <= 5){
-            String []_Items = {"", "Chest", "Skeleton"};
-            float []_Weights = {0.98f, 0.002f, 0.06f};
+            String []_Items = {"", "Chest", "Skeleton", "DebugItem"};
+            float []_Weights = {0.98f, 0.002f, 0.06f, 0.06f};
 
             Dictionary<String, PackedScene> Items = new Dictionary<String, PackedScene>(){
                 ["Chest"] = (PackedScene)ResourceLoader.Load("res://Node/Chests/Wood_Chest/Wood_Chest.tscn"),
-                ["Skeleton"] = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Skeleton/Skeleton_lvl1.tscn")
+                ["Skeleton"] = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Skeleton/Skeleton_lvl1.tscn"),
+                ["DebugItem"] = (PackedScene)ResourceLoader.Load("res://Node/Items/DebugItem.tscn")
             };
             
             if(_RoomType == RoomType[1]){

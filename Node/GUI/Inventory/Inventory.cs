@@ -10,6 +10,8 @@ public class Inventory : Control
     private Panel inventoryPanel;
     private Panel chestInventory;
 
+    public bool FullInventory = false;
+
     public override void _Ready()
     {
         inventoryPanel = GetNode<Panel>("Panels/InventoryPanel");
@@ -20,12 +22,29 @@ public class Inventory : Control
                 InvCell.Add(i);
             }
         }
+        GD.Print("invCells " + InvCell.Count.ToString());
         foreach(ItemCell i in chestInventory.GetChildren()){
             if(i.IsInGroup("InvCell")){
                 ChestCell.Add(i);
             }
         }
 
+    }
+    public bool CollectItem(Item item){
+        var remainingQuantity = item.ItemCount;
+        foreach(ItemCell ic in InvCell){
+            if(remainingQuantity > 0){
+                int rq = ic.AddItem(item);
+                remainingQuantity = rq;
+            }
+        }
+        var full = (remainingQuantity == 0);
+        if(!full){
+            FullInventory = true;
+        }else{
+            FullInventory = false;
+        }
+        return full;
     }
 
     public void OpenChest(){
