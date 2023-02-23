@@ -53,7 +53,7 @@ public class Skeleton_lvl1 : Enemy
             if(deg2fp>=45 && deg2fp <= 150){
                 animationSprite.Play("Up");
                 GD.Print("UP");
-            }else if(deg2fp>=150 && deg2fp >= -135){
+            }else if(deg2fp>=150 && deg2fp <= -135){
                 animationSprite.Play("Right");
                 GD.Print("Right");
             }else if(deg2fp>=-135 && deg2fp <= -60){
