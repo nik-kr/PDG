@@ -3,6 +3,13 @@ using System;
 
 public class Singletone : Node
 {
+
+
+
+
+
+
+
     public ProgressBar HPBar;
     public Inventory Inv;
     public Level LevelNode;
@@ -16,7 +23,7 @@ public class Singletone : Node
 
     public int TileSize = 16;
 
-    //!Player Charateristic
+    //*Player Charateristic
     public float Strenght;
     public float MaxHealthPoint;
     public float HealthPoint;
@@ -30,8 +37,14 @@ public class Singletone : Node
     public float Damage;
     public float Secrecy;
 
-    //!GameSettings
+    //*GameSettings
     public bool DebugMode = false;
+    public ConfigFile config = new ConfigFile();    //Game Data
+    public float masterVolume = 50;                 //Громкость
+    public int difficult = 2;                       //Сложность игры
+
+    //
+    public
 
     //?Debug
     public Texture debugItemTexture = (Texture)GD.Load("res://Sprite/GameResources/Debug/DebugItem.png");
