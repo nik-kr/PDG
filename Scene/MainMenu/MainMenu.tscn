@@ -1,6 +1,65 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scene/MainMenu/MainMenu.gd" type="Script" id=1]
+[ext_resource path="res://Resources/GUI/DungeonWall.png" type="Texture" id=2]
+[ext_resource path="res://Resources/Character/WarriorStay2.png" type="Texture" id=3]
+[ext_resource path="res://Resources/Character/WarriorStay3.png" type="Texture" id=4]
+[ext_resource path="res://Resources/Character/WarriorStay1.png" type="Texture" id=5]
+[ext_resource path="res://Resources/Character/WarriorStay4.png" type="Texture" id=6]
+[ext_resource path="res://Resources/Shaider/TilingAndOffset.gdshader" type="Shader" id=7]
+[ext_resource path="res://Node/GUI/GlowButton.tscn" type="PackedScene" id=8]
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 7 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 32, 48 )
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends Panel
+
+
+var battonSoundPath = [\"res://Resources/Audio/MainMenu/discord-call-sound.mp3\", \"res://Resources/Audio/MainMenu/foo.mp3\", \"res://Resources/Audio/MainMenu/new-roblox-death-sound.mp3\", \"res://Resources/Audio/MainMenu/slowed-down-roblox-death-noise.mp3\", \"res://Resources/Audio/MainMenu/vine-boom.mp3\"]
+
+func playButtonSound():
+	var soundPath = battonSoundPath[int(rand_range(0, len(battonSoundPath)))]
+	var sound = load(soundPath)
+	$PlayerSoung.stream = sound
+	$PlayerSoung.play()
+	pass
+
+func _ready():
+	randomize()
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_imgPlayer1_pressed():
+	playButtonSound()
+	pass # Replace with function body.
+
+
+func _on_imgPlayer2_pressed():
+	playButtonSound()
+	pass # Replace with function body.
+"
+
+[sub_resource type="AnimatedTexture" id=8]
+frames = 4
+frame_0/texture = ExtResource( 5 )
+frame_1/texture = ExtResource( 3 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 4 )
+frame_2/delay_sec = 0.0
+frame_3/texture = ExtResource( 6 )
+frame_3/delay_sec = 0.0
 
 [sub_resource type="Animation" id=1]
 resource_name = "LoadScreen"
@@ -163,21 +222,78 @@ Panel/styles/panel = SubResource( 3 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 210.0 ],
+"_edit_vertical_guides_": [ 187.0, 837.0 ]
+}
+
+[node name="Background" type="Panel" parent="."]
+material = SubResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 5 )
+script = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="imgPlayer1" type="TextureButton" parent="Background"]
+anchor_left = 0.0439453
+anchor_top = 0.35
+anchor_right = 0.180664
+anchor_bottom = 0.595
+texture_normal = SubResource( 8 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="imgPlayer2" type="TextureButton" parent="Background"]
+anchor_left = 0.816406
+anchor_top = 0.35
+anchor_right = 0.953125
+anchor_bottom = 0.595
+texture_normal = SubResource( 8 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="PlayerSoung" type="AudioStreamPlayer" parent="Background"]
+pitch_scale = 0.65
 
 [node name="CenterContainer" type="VBoxContainer" parent="."]
-anchor_left = 0.183105
-anchor_right = 0.816895
+anchor_left = 0.182617
+anchor_top = 0.35
+anchor_right = 0.817383
 anchor_bottom = 1.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_constants/separation = -311
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="NewGame" type="Button" parent="CenterContainer"]
-margin_top = 284.0
-margin_right = 649.0
-margin_bottom = 316.0
-text = "New Game"
+[node name="NewGame" parent="CenterContainer" instance=ExtResource( 8 )]
+light_mask = 3
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 238.0
+margin_right = 411.0
+margin_bottom = 32.0
+text = " В преключение "
+
+[node name="NewGame2" parent="CenterContainer" instance=ExtResource( 8 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 239.0
+margin_top = 39.0
+margin_right = 410.0
+margin_bottom = 71.0
+text = "    Настройки    "
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/LoadScreen = SubResource( 1 )
@@ -190,5 +306,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = SubResource( 4 )
 
+[connection signal="pressed" from="Background/imgPlayer1" to="Background" method="_on_imgPlayer1_pressed"]
+[connection signal="pressed" from="Background/imgPlayer2" to="Background" method="_on_imgPlayer2_pressed"]
 [connection signal="pressed" from="CenterContainer/NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

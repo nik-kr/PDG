@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/discord-call-sound.mp3-5520a07e5e27b4d669f8e322bcc48447.mp3str"
+
+[deps]
+
+source_file="res://Resources/Audio/MainMenu/discord-call-sound.mp3"
+dest_files=[ "res://.import/discord-call-sound.mp3-5520a07e5e27b4d669f8e322bcc48447.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

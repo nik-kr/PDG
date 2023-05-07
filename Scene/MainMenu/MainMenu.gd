@@ -4,6 +4,7 @@ var PersonChoose = preload("res://Scene/MainMenu/PersonChoose.tscn")
 
 
 func _on_NewGame_pressed():
+	print("New Game!")
 	$CenterContainer.visible = false
 	$AnimationPlayer.play("LoadScreen")
 

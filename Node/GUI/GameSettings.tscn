@@ -1,0 +1,364 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Resources/GUI/DungeonWall.png" type="Texture" id=1]
+[ext_resource path="res://Resources/Shaider/TilingAndOffset.gdshader" type="Shader" id=2]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Control
+
+var can_change_key = false
+var change_key_name = \"\"
+var changedButton
+func _ready():
+	
+	pass
+
+func _input(event):
+	if event is InputEventKey:
+		if can_change_key and change_key_name != \"\":
+			change_key(event)
+
+func change_key(event):
+	#Delete key
+	if !InputMap.get_action_list(change_key_name).empty():
+		InputMap.action_erase_event(change_key_name, InputMap.get_action_list(change_key_name)[0])
+	if InputMap.action_has_event(change_key_name, event):
+		InputMap.action_erase_event(change_key_name, event)
+	InputMap.action_add_event(change_key_name, event)
+
+	can_change_key = false
+	changedButton.text = \"Изменено\"
+	pass
+
+func _on_SoundSlider_value_changed(value):
+	$VBoxContainer/SoundMixer/HSplitContainer/Label.text = str(int(value))
+	pass # Replace with function body.
+
+
+func _on_DifficultySlider_value_changed(value):
+	var variant = [\"Легкая\", \"Нормальная\", \"Сложная\"]
+	$VBoxContainer/Difficulty/HSplitContainer/Label.text = variant[int(value)]
+	pass # Replace with function body.
+
+#------    UP    ------#
+func _on_chooseButtonUp_pressed():
+	if !can_change_key:
+		can_change_key = true
+		change_key_name = \"ui_up\"
+		changedButton = $VBoxContainer/uiUp/HSplitContainer/chooseButton
+		changedButton.text = \"<Изменяем...>\"
+	pass
+
+
+func _on_chooseButtonDown_pressed():
+	if !can_change_key:
+		can_change_key = true
+		change_key_name = \"ui_down\"
+		changedButton = $VBoxContainer/uiDown/HSplitContainer/chooseButton
+		changedButton.text = \"<Изменяем...>\"
+	pass # Replace with function body.
+
+
+func _on_chooseButtonRight_pressed():
+	if !can_change_key:
+		can_change_key = true
+		change_key_name = \"ui_right\"
+		changedButton = $VBoxContainer/uiRight/HSplitContainer/chooseButton
+		changedButton.text = \"<Изменяем...>\"
+	pass # Replace with function body.
+
+
+func _on_chooseButtonLeft_pressed():
+	if !can_change_key:
+		can_change_key = true
+		change_key_name = \"ui_left\"
+		changedButton = $VBoxContainer/uiLeft/HSplitContainer/chooseButton
+		changedButton.text = \"<Изменяем...>\"
+	pass # Replace with function body.
+
+
+func _on_chooseButtonAttack_pressed():
+	if !can_change_key:
+		can_change_key = true
+		change_key_name = \"ui_attack\"
+		changedButton = $VBoxContainer/uiAttack/HSplitContainer/chooseButton
+		changedButton.text = \"<Изменяем...>\"
+	pass # Replace with function body.
+"
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 32, 48 )
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+
+[node name="GameSettings" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 280, 240 )
+script = SubResource( 3 )
+__meta__ = {
+"_edit_vertical_guides_": [ 70.0, 954.0, 438.0 ]
+}
+
+[node name="Background" type="Panel" parent="."]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="Button" type="Button" parent="Background"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 64.0
+margin_bottom = 64.0
+text = "<"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.0693359
+anchor_top = 0.121667
+anchor_right = 0.930664
+anchor_bottom = 0.898333
+margin_bottom = -3.05176e-05
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="lSound" type="Label" parent="VBoxContainer"]
+margin_right = 882.0
+margin_bottom = 26.0
+text = "Настройка звука"
+align = 1
+
+[node name="SoundMixer" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 30.0
+margin_right = 882.0
+margin_bottom = 56.0
+
+[node name="Label" type="Label" parent="VBoxContainer/SoundMixer"]
+margin_right = 103.0
+margin_bottom = 26.0
+text = "Громкость"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/SoundMixer"]
+margin_left = 115.0
+margin_right = 882.0
+margin_bottom = 26.0
+custom_constants/separation = 27
+split_offset = 617
+dragger_visibility = 1
+
+[node name="SoundSlider" type="HSlider" parent="VBoxContainer/SoundMixer/HSplitContainer"]
+margin_right = 633.0
+margin_bottom = 16.0
+tick_count = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/SoundMixer/HSplitContainer"]
+margin_left = 660.0
+margin_right = 767.0
+margin_bottom = 26.0
+text = "Сложность"
+
+[node name="lControl" type="Label" parent="VBoxContainer"]
+margin_top = 60.0
+margin_right = 882.0
+margin_bottom = 86.0
+text = "Настройки управления"
+align = 1
+
+[node name="uiUp" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 90.0
+margin_right = 882.0
+margin_bottom = 122.0
+custom_constants/autohide = 3
+custom_constants/separation = 3
+split_offset = 304
+
+[node name="Label" type="Label" parent="VBoxContainer/uiUp"]
+margin_top = 3.0
+margin_right = 361.0
+margin_bottom = 29.0
+text = "Вверх"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/uiUp"]
+margin_left = 369.0
+margin_right = 882.0
+margin_bottom = 32.0
+custom_constants/separation = 181
+split_offset = 92
+dragger_visibility = 1
+
+[node name="chooseButton" type="Button" parent="VBoxContainer/uiUp/HSplitContainer"]
+margin_right = 513.0
+margin_bottom = 32.0
+text = "Изменить."
+
+[node name="uiDown" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 126.0
+margin_right = 882.0
+margin_bottom = 158.0
+custom_constants/autohide = 3
+custom_constants/separation = 3
+split_offset = 315
+
+[node name="Label" type="Label" parent="VBoxContainer/uiDown"]
+margin_top = 3.0
+margin_right = 361.0
+margin_bottom = 29.0
+text = "Вниз"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/uiDown"]
+margin_left = 369.0
+margin_right = 882.0
+margin_bottom = 32.0
+custom_constants/separation = 181
+split_offset = 92
+dragger_visibility = 1
+
+[node name="chooseButton" type="Button" parent="VBoxContainer/uiDown/HSplitContainer"]
+margin_right = 513.0
+margin_bottom = 32.0
+text = "Изменить."
+
+[node name="uiRight" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 162.0
+margin_right = 882.0
+margin_bottom = 194.0
+custom_constants/autohide = 3
+custom_constants/separation = 3
+split_offset = 293
+
+[node name="Label" type="Label" parent="VBoxContainer/uiRight"]
+margin_top = 3.0
+margin_right = 361.0
+margin_bottom = 29.0
+text = "Вправо"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/uiRight"]
+margin_left = 369.0
+margin_right = 882.0
+margin_bottom = 32.0
+size_flags_horizontal = 5
+custom_constants/separation = 181
+split_offset = 92
+dragger_visibility = 1
+
+[node name="chooseButton" type="Button" parent="VBoxContainer/uiRight/HSplitContainer"]
+margin_right = 513.0
+margin_bottom = 32.0
+text = "Изменить."
+
+[node name="uiLeft" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 198.0
+margin_right = 882.0
+margin_bottom = 230.0
+custom_constants/autohide = 3
+custom_constants/separation = 3
+split_offset = 301
+
+[node name="Label" type="Label" parent="VBoxContainer/uiLeft"]
+margin_top = 3.0
+margin_right = 360.0
+margin_bottom = 29.0
+text = "Влево"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/uiLeft"]
+margin_left = 368.0
+margin_right = 882.0
+margin_bottom = 32.0
+custom_constants/separation = 181
+split_offset = 92
+dragger_visibility = 1
+
+[node name="chooseButton" type="Button" parent="VBoxContainer/uiLeft/HSplitContainer"]
+margin_right = 514.0
+margin_bottom = 32.0
+text = "Изменить."
+
+[node name="uiAttack" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 234.0
+margin_right = 882.0
+margin_bottom = 266.0
+custom_constants/autohide = 3
+custom_constants/separation = 3
+split_offset = 301
+
+[node name="Label" type="Label" parent="VBoxContainer/uiAttack"]
+margin_top = 3.0
+margin_right = 360.0
+margin_bottom = 29.0
+text = "Атака"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/uiAttack"]
+margin_left = 368.0
+margin_right = 882.0
+margin_bottom = 32.0
+custom_constants/separation = 181
+split_offset = 92
+dragger_visibility = 1
+
+[node name="chooseButton" type="Button" parent="VBoxContainer/uiAttack/HSplitContainer"]
+margin_right = 514.0
+margin_bottom = 32.0
+text = "Изменить."
+
+[node name="IGame" type="Label" parent="VBoxContainer"]
+margin_top = 270.0
+margin_right = 882.0
+margin_bottom = 296.0
+text = "Настройки игры"
+align = 1
+
+[node name="Difficulty" type="HSplitContainer" parent="VBoxContainer"]
+margin_top = 300.0
+margin_right = 882.0
+margin_bottom = 326.0
+
+[node name="Label" type="Label" parent="VBoxContainer/Difficulty"]
+margin_right = 107.0
+margin_bottom = 26.0
+text = "Сложность"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/Difficulty"]
+margin_left = 119.0
+margin_right = 882.0
+margin_bottom = 26.0
+custom_constants/separation = 27
+split_offset = 617
+dragger_visibility = 1
+
+[node name="DifficultySlider" type="HSlider" parent="VBoxContainer/Difficulty/HSplitContainer"]
+margin_right = 629.0
+margin_bottom = 16.0
+max_value = 2.0
+tick_count = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Difficulty/HSplitContainer"]
+margin_left = 656.0
+margin_right = 763.0
+margin_bottom = 26.0
+text = "Сложность"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchor_left = 0.0693359
+anchor_top = 0.898333
+anchor_right = 0.930664
+anchor_bottom = 1.0
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0.47451 )
+custom_constants/shadow_offset_x = 13
+custom_constants/shadow_offset_y = 3
+text = "По умолчанию настройки клавиш следующие: Вверх - W, Вниз - S, Влево - A, Вправо - D, Атака - ПКМ. Рекомендуем не изменять данные настройки без надобности."
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[connection signal="value_changed" from="VBoxContainer/SoundMixer/HSplitContainer/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
+[connection signal="pressed" from="VBoxContainer/uiUp/HSplitContainer/chooseButton" to="." method="_on_chooseButtonUp_pressed"]
+[connection signal="pressed" from="VBoxContainer/uiDown/HSplitContainer/chooseButton" to="." method="_on_chooseButtonDown_pressed"]
+[connection signal="pressed" from="VBoxContainer/uiRight/HSplitContainer/chooseButton" to="." method="_on_chooseButtonRight_pressed"]
+[connection signal="pressed" from="VBoxContainer/uiLeft/HSplitContainer/chooseButton" to="." method="_on_chooseButtonLeft_pressed"]
+[connection signal="pressed" from="VBoxContainer/uiAttack/HSplitContainer/chooseButton" to="." method="_on_chooseButtonAttack_pressed"]
+[connection signal="value_changed" from="VBoxContainer/Difficulty/HSplitContainer/DifficultySlider" to="." method="_on_DifficultySlider_value_changed"]

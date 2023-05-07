@@ -11,6 +11,7 @@ public class Wood_Chest : Area2D
 
     private AnimatedSprite animatedSprite;
     
+    /*
     private Dictionary<String, PackedScene> Items = new Dictionary<String, PackedScene>(){
                 ["BigSword"]        = (PackedScene)ResourceLoader.Load("res://Node/Chests/Wood_Chest/Wood_Chest.tscn"),
                 ["GatzSword"]       = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Skeleton/Skeleton_lvl1.tscn"),
@@ -18,6 +19,7 @@ public class Wood_Chest : Area2D
                 ["LeatherArmor"]    = ,
                 ["Spear"]           = 
             };
+    */
 
     public override void _Ready()
     {

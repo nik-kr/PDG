@@ -23,6 +23,8 @@ public class Item : Area2D
 
     private bool doCollect = false;
 
+    public PackedScene NodeScene;
+
     private Player player;
     public Singletone GS;
 

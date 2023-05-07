@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Resources/GUI/Button.png" type="Texture" id=1]
+
+[sub_resource type="Shader" id=10]
+code = "shader_type canvas_item;
+
+
+// vec2Compose
+vec2 _vec2ComposeFunc(float _vec2_length, float _vec2_angl_rad){
+	return vec2(cos(_vec2_angl_rad), sin(_vec2_angl_rad)) * _vec2_length;
+}
+
+void vertex() {
+// Output:0
+
+}
+
+void fragment() {
+// Scalar:3
+	float n_out3p0 = 1.000000;
+
+// Input:4
+	float n_out4p0 = TIME;
+
+// vec2Compose:2
+	vec3 n_out2p0;
+	{
+		n_out2p0.xy = _vec2ComposeFunc(n_out3p0, n_out4p0);
+	}
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+
+}
+
+void light() {
+// Output:0
+
+}
+"
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
+
+[sub_resource type="StyleBoxTexture" id=12]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 128, 32 )
+
+[node name="NewGame" type="Button"]
+anchor_right = 0.155273
+anchor_bottom = 0.0533333
+size_flags_horizontal = 6
+size_flags_vertical = 2
+text = "В преключение"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+material = SubResource( 11 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+input_pass_on_modal_close_click = false
+
+[node name="Panel2" type="Panel" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+input_pass_on_modal_close_click = false
+custom_styles/panel = SubResource( 12 )
