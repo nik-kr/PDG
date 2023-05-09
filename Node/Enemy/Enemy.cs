@@ -9,6 +9,8 @@ public class Enemy : KinematicBody2D
     public AnimationPlayer animPlayer;
     public String deathAnimName;
     public Vector2 velocity = Vector2.Zero;
+    public AnimatedSprite spriteAnim;
+    public String deathSpriteAnim = null;
     
     public async void Death(AnimationPlayer aPlayer = null, String aName = null){
         if(aPlayer != null && aName != null){

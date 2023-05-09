@@ -415,7 +415,8 @@
     ]
   },
   "packageFolders": {
-    "/home/nekiuriti/.nuget/packages/": {}
+    "/home/nekiuriti/.nuget/packages/": {},
+    "/home/nekiuriti/.local/share/godot/mono/GodotNuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -426,8 +427,12 @@
       "packagesPath": "/home/nekiuriti/.nuget/packages/",
       "outputPath": "/home/nekiuriti/.project/godot/PDG/.mono/temp/obj/",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "/home/nekiuriti/.local/share/godot/mono/GodotNuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "/home/nekiuriti/.nuget/NuGet/NuGet.Config"
+        "/home/nekiuriti/.nuget/NuGet/NuGet.Config",
+        "/home/nekiuriti/.nuget/NuGet/config/Godot.Offline.Config"
       ],
       "originalTargetFrameworks": [
         "net472"

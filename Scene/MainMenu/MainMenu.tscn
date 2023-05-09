@@ -306,7 +306,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = SubResource( 4 )
 
+[node name="LRecord" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -192.0
+margin_right = 196.0
+margin_bottom = 75.0
+text = "Рекордный уровень: 0"
+align = 1
+valign = 1
+uppercase = true
+
 [connection signal="pressed" from="Background/imgPlayer1" to="Background" method="_on_imgPlayer1_pressed"]
 [connection signal="pressed" from="Background/imgPlayer2" to="Background" method="_on_imgPlayer2_pressed"]
 [connection signal="pressed" from="CenterContainer/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="CenterContainer/NewGame2" to="." method="_on_NewGame2_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -9,14 +9,22 @@ script/source = "extends Control
 var can_change_key = false
 var change_key_name = \"\"
 var changedButton
+
+onready var GS = $\"/root/GlobalSingletone\"
+
 func _ready():
+	GS.LoadCfg()
 	
-	pass
+	$VBoxContainer/SoundMixer/HSplitContainer/SoundSlider.value = GS.masterVolume
+	$VBoxContainer/Difficulty/HSplitContainer/DifficultySlider.value = GS.difficult
 
 func _input(event):
 	if event is InputEventKey:
 		if can_change_key and change_key_name != \"\":
-			change_key(event)
+			GS.changeKey(event, change_key_name)
+			can_change_key = false
+			changedButton.text = \"Изменено\"
+#			change_key(event)
 
 func change_key(event):
 	#Delete key
@@ -32,12 +40,14 @@ func change_key(event):
 
 func _on_SoundSlider_value_changed(value):
 	$VBoxContainer/SoundMixer/HSplitContainer/Label.text = str(int(value))
+	GS.masterVolume = $VBoxContainer/SoundMixer/HSplitContainer/SoundSlider.value
 	pass # Replace with function body.
 
 
 func _on_DifficultySlider_value_changed(value):
 	var variant = [\"Легкая\", \"Нормальная\", \"Сложная\"]
 	$VBoxContainer/Difficulty/HSplitContainer/Label.text = variant[int(value)]
+	GS.difficult = $VBoxContainer/Difficulty/HSplitContainer/DifficultySlider.value
 	pass # Replace with function body.
 
 #------    UP    ------#
@@ -76,14 +86,9 @@ func _on_chooseButtonLeft_pressed():
 		changedButton.text = \"<Изменяем...>\"
 	pass # Replace with function body.
 
-
-func _on_chooseButtonAttack_pressed():
-	if !can_change_key:
-		can_change_key = true
-		change_key_name = \"ui_attack\"
-		changedButton = $VBoxContainer/uiAttack/HSplitContainer/chooseButton
-		changedButton.text = \"<Изменяем...>\"
-	pass # Replace with function body.
+func _on_BackToPrevious_pressed():
+	GS.SaveCfg()
+	get_tree().change_scene_to(load(\"res://Scene/MainMenu/MainMenu.tscn\"))
 "
 
 [sub_resource type="ShaderMaterial" id=1]
@@ -110,7 +115,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 2 )
 
-[node name="Button" type="Button" parent="Background"]
+[node name="BackToPrevious" type="Button" parent="Background"]
 margin_left = 32.0
 margin_top = 32.0
 margin_right = 64.0
@@ -278,44 +283,17 @@ margin_right = 514.0
 margin_bottom = 32.0
 text = "Изменить."
 
-[node name="uiAttack" type="HSplitContainer" parent="VBoxContainer"]
+[node name="IGame" type="Label" parent="VBoxContainer"]
 margin_top = 234.0
 margin_right = 882.0
-margin_bottom = 266.0
-custom_constants/autohide = 3
-custom_constants/separation = 3
-split_offset = 301
-
-[node name="Label" type="Label" parent="VBoxContainer/uiAttack"]
-margin_top = 3.0
-margin_right = 360.0
-margin_bottom = 29.0
-text = "Атака"
-
-[node name="HSplitContainer" type="HSplitContainer" parent="VBoxContainer/uiAttack"]
-margin_left = 368.0
-margin_right = 882.0
-margin_bottom = 32.0
-custom_constants/separation = 181
-split_offset = 92
-dragger_visibility = 1
-
-[node name="chooseButton" type="Button" parent="VBoxContainer/uiAttack/HSplitContainer"]
-margin_right = 514.0
-margin_bottom = 32.0
-text = "Изменить."
-
-[node name="IGame" type="Label" parent="VBoxContainer"]
-margin_top = 270.0
-margin_right = 882.0
-margin_bottom = 296.0
+margin_bottom = 260.0
 text = "Настройки игры"
 align = 1
 
 [node name="Difficulty" type="HSplitContainer" parent="VBoxContainer"]
-margin_top = 300.0
+margin_top = 264.0
 margin_right = 882.0
-margin_bottom = 326.0
+margin_bottom = 290.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Difficulty"]
 margin_right = 107.0
@@ -350,15 +328,15 @@ anchor_bottom = 1.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0.47451 )
 custom_constants/shadow_offset_x = 13
 custom_constants/shadow_offset_y = 3
-text = "По умолчанию настройки клавиш следующие: Вверх - W, Вниз - S, Влево - A, Вправо - D, Атака - ПКМ. Рекомендуем не изменять данные настройки без надобности."
+text = "По умолчанию настройки клавиш следующие: Вверх - W, Вниз - S, Влево - A, Вправо - D. Рекомендуем не изменять данные настройки без надобности."
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
+[connection signal="pressed" from="Background/BackToPrevious" to="." method="_on_BackToPrevious_pressed"]
 [connection signal="value_changed" from="VBoxContainer/SoundMixer/HSplitContainer/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
 [connection signal="pressed" from="VBoxContainer/uiUp/HSplitContainer/chooseButton" to="." method="_on_chooseButtonUp_pressed"]
 [connection signal="pressed" from="VBoxContainer/uiDown/HSplitContainer/chooseButton" to="." method="_on_chooseButtonDown_pressed"]
 [connection signal="pressed" from="VBoxContainer/uiRight/HSplitContainer/chooseButton" to="." method="_on_chooseButtonRight_pressed"]
 [connection signal="pressed" from="VBoxContainer/uiLeft/HSplitContainer/chooseButton" to="." method="_on_chooseButtonLeft_pressed"]
-[connection signal="pressed" from="VBoxContainer/uiAttack/HSplitContainer/chooseButton" to="." method="_on_chooseButtonAttack_pressed"]
 [connection signal="value_changed" from="VBoxContainer/Difficulty/HSplitContainer/DifficultySlider" to="." method="_on_DifficultySlider_value_changed"]
