@@ -6,7 +6,8 @@ public class Singletone : Node
 
 
 
-
+    public int ghostCount = 0;
+    public int maxGhostCount = 50;
 
 
 
@@ -15,6 +16,8 @@ public class Singletone : Node
     public Level LevelNode;
     public int level = 1;
     
+    public PackedScene pGhostMonolith = (PackedScene)ResourceLoader.Load("res://Node/Enemy/GhostMonolith/GhostMonolith.tscn");
+
     public PackedScene _PacWarrior = (PackedScene)ResourceLoader.Load("res://Node/Character/Warrior/Warrior.tscn");
     public String Character;
     public Player player = new Player();

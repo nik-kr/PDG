@@ -10,7 +10,7 @@ public class Skeleton_lvl1 : Enemy
     [Export]
     public float hitTime = 2.5f;
     [Export]
-    public float damage = 0.4f;
+    public float damage = 1.5f;
 
 
     private CircleShape2D DetectShape; //Detection Shape
@@ -49,19 +49,14 @@ public class Skeleton_lvl1 : Enemy
             velocity += steering;
             velocity = MoveAndSlide(velocity);
             float deg2fp = Godot.Mathf.Rad2Deg(GlobalPosition.AngleToPoint(_Footprint.GlobalPosition));
-            GD.Print(deg2fp);
             if(deg2fp>=45 && deg2fp <= 150){
                 animationSprite.Play("Up");
-                GD.Print("UP");
             }else if(deg2fp>=150 && deg2fp <= -135){
                 animationSprite.Play("Right");
-                GD.Print("Right");
             }else if(deg2fp>=-135 && deg2fp <= -60){
                 animationSprite.Play("Down");
-                GD.Print("Down");
             }else if(deg2fp>=-60 && deg2fp <= 45){
                 animationSprite.Play("Left");
-                GD.Print("Left");
             }
         }else{
             animationSprite.Play("Stay");

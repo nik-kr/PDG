@@ -14,7 +14,9 @@ public class defaultSword : Weapon
         if (body.IsInGroup("enemy")){
             ((Enemy)body).TakeDamage(damage);
             //Отталкивание при ударе
-            ((Enemy)body).velocity += this.GlobalPosition.DirectionTo(((Enemy)body).GlobalPosition) * 140;
+            if(!body.IsInGroup("GhostMonolith")){
+                ((Enemy)body).velocity += this.GlobalPosition.DirectionTo(((Enemy)body).GlobalPosition) * 140;
+            }
             GD.Print( ((Enemy)body).HealthPoint );
         }
     }

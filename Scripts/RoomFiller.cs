@@ -8,8 +8,8 @@ public class RoomFiller : Node
     private Singletone GS = new Singletone();
     private NFunc NF = new NFunc();
 
-    public String []RoomType   = {"SHOP_ROOM", "DEFAULT_ROOM", "SPAUNER_ROOM", "BOSS_ROOM"};
-    public float  []Wights      = {0.05f, 0.80f, 0.15f, 0.05f};
+    public String []RoomType   = {"GHOST_SPAWNER", "DEFAULT_ROOM", "SPAUNER_ROOM", "BOSS_ROOM"};
+    public float  []Wights      = {0.2f, 0.80f, 0.0f, 0.0f};
 
     public override void _Ready(){
         GS = GetNode<Singletone>("/root/GlobalSingletone");
@@ -30,7 +30,12 @@ public class RoomFiller : Node
             // Ladder.GlobalPosition = _Room.Position;
             Ladder.ToLocal(new Vector2((Position1.x + Position2.x)/2,
                                             Position1.y + Position2.y)/2);
-        }else if(GS.level <= 5){
+        }else if(_RoomType == "GHOST_SPAWNER"){
+            GhostMonolith ghostMonolith  = GS.pGhostMonolith.Instance<GhostMonolith>();
+            _Room.AddChild(ghostMonolith);
+            ghostMonolith.GlobalPosition = new Vector2((Position1.x + Position2.x)/2, (Position1.y + Position2.y)/2);
+            GD.Print("Ghost Monolith created!");
+        }else if(GS.level < 5){
             String []_Items = {"", "Chest", "Skeleton", "DebugItem"};
             float []_Weights = {0.98f, 0.002f, 0.06f, 0.06f};
 
