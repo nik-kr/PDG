@@ -26,7 +26,7 @@ public class Ghost : Enemy
 
     public override void _Ready()
     {
-        MaxHealthPoint = 5; HealthPoint = 5;
+        MaxHealthPoint = 3 + (3/10)*GS.level; HealthPoint = MaxHealthPoint;
 
         GS = GetNode<Singletone>("/root/GlobalSingletone");
         animationSprite = GetNode<AnimatedSprite>("AnimatedSprite");

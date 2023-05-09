@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Skeleton_lvl1 : Enemy
+public class Slime : Enemy
 {
     [Export]
     public float speed = 120;
@@ -13,8 +13,10 @@ public class Skeleton_lvl1 : Enemy
     public float damage = 1.5f;
 
 
+
     private Footprint _Footprint; // Footprint
     private Timer HitTimer;
+    private Timer JumpTimer;
     private KinematicBody2D Player;
     private Singletone GS;
     private AnimatedSprite animationSprite;
@@ -27,8 +29,7 @@ public class Skeleton_lvl1 : Enemy
     public override void _Ready()
     {
         animationSprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        MaxHealthPoint = 7 + (7/10)*GS.level; HealthPoint = MaxHealthPoint;
-        animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        MaxHealthPoint = 5 + (5/10) * GS.level; HealthPoint = MaxHealthPoint;
         deathAnimName = "death";
         GS = GetNode<Singletone>("/root/GlobalSingletone");
         HitTimer = GetNode<Timer>("HitTimer");
@@ -45,17 +46,11 @@ public class Skeleton_lvl1 : Enemy
             velocity += steering;
             velocity = MoveAndSlide(velocity);
             float deg2fp = Godot.Mathf.Rad2Deg(GlobalPosition.AngleToPoint(_Footprint.GlobalPosition));
-            if(deg2fp>=45 && deg2fp <= 150){
-                animationSprite.Play("Up");
-            }else if(deg2fp>=150 && deg2fp <= -135){
-                animationSprite.Play("Right");
-            }else if(deg2fp>=-135 && deg2fp <= -60){
-                animationSprite.Play("Down");
-            }else if(deg2fp>=-60 && deg2fp <= 45){
-                animationSprite.Play("Left");
+            if(deg2fp > -7.5 && deg2fp < 7.5){
+                animationSprite.Play("backword");
+            }else{
+                animationSprite.Play("forword");
             }
-        }else{
-            animationSprite.Play("Stay");
         }
     }
     public void _on_DetectionZone_area_entered(Area2D area){
@@ -74,6 +69,9 @@ public class Skeleton_lvl1 : Enemy
             takeDamage(damage);
         }
     }
+    public void _on_JumpTimer_timeout(){
+
+    }
     public void _on_HitArea_body_entered(Node body){
         if(body.IsInGroup("player")){
             Player = (KinematicBody2D)body;
@@ -91,10 +89,5 @@ public class Skeleton_lvl1 : Enemy
     }
     public void takeDamage(float damage){
         animPlayer.Play("takeDamage");
-    }
-    public void _on_AnimationPlayer_animation_finished(String AnimName){
-        if(AnimName == "takeDamage"){
-            GS.takeDamage(damage);
-        }
     }
 }
