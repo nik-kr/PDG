@@ -7,19 +7,27 @@ public class Enemy : KinematicBody2D
     public float MaxHealthPoint;
 
     public AnimationPlayer animPlayer = null;
-    public String deathAnimName = null;
+    public String deathAnimName = "death";
+    public bool killed = true;
+    public bool enemyKilled = false;
+    public bool aPlayerORaSprite = true;
     public Vector2 velocity = Vector2.Zero;
-    public AnimatedSprite spriteAnim = null;
+    public AnimatedSprite animSprite = null;
     public String deathSpriteAnim = null;
     
-    public async void Death(AnimationPlayer aPlayer = null, String aName = null){
-        if(aPlayer != null && aName != null){
+    public virtual async void Death(AnimationPlayer aPlayer = null, String aName = null){
+        if(aPlayer != null && aName != null && aPlayerORaSprite == true){
             await ToSignal(aPlayer, "animation_finished");
         }
-        QueueFree();
+        if(killed){
+            QueueFree();
+        }else{
+            animSprite.Play(deathSpriteAnim);
+            enemyKilled = true;
+        }
     }
 
-    public void TakeDamage(float damage){
+    public virtual void TakeDamage(float damage){
         if(damage >= HealthPoint){
             HealthPoint -= HealthPoint;
             if(animPlayer != null){
@@ -28,6 +36,6 @@ public class Enemy : KinematicBody2D
             Death(animPlayer, deathAnimName);
         }
         HealthPoint -= damage;
-        
+        GD.Print("Destroyed!");
     }
 }
