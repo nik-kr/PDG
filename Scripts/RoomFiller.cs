@@ -35,14 +35,15 @@ public class RoomFiller : Node
             _Room.AddChild(ghostMonolith);
             ghostMonolith.GlobalPosition = new Vector2((Position1.x + Position2.x)/2, (Position1.y + Position2.y)/2);
             GD.Print("Ghost Monolith created!");
-        }else if(GS.level < 5){
-            String []_Items = {"", "Chest", "Skeleton", "DebugItem"};
-            float []_Weights = {0.98f, 0.002f, 0.06f, 0.06f};
+        }else if(GS.level%5 < 5){
+            String []_Items = {"", "Chest", "Skeleton", "DebugItem", "Slime"};
+            float []_Weights = {0.98f, 0.000f, 0.06f, 0.00f, 0.05f};
 
             Dictionary<String, PackedScene> Items = new Dictionary<String, PackedScene>(){
-                ["Chest"] = (PackedScene)ResourceLoader.Load("res://Node/Chests/Wood_Chest/Wood_Chest.tscn"),
-                ["Skeleton"] = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Skeleton/Skeleton_lvl1.tscn"),
-                ["DebugItem"] = (PackedScene)ResourceLoader.Load("res://Node/Items/DebugItem.tscn")
+                ["Chest"]       = (PackedScene)ResourceLoader.Load("res://Node/Chests/Wood_Chest/Wood_Chest.tscn"),
+                ["Skeleton"]    = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Skeleton/Skeleton_lvl1.tscn"),
+                ["DebugItem"]   = (PackedScene)ResourceLoader.Load("res://Node/Items/DebugItem.tscn"),
+                ["Slime"]       = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Slime/Slime.tscn")
             };
             
             if(_RoomType == RoomType[1]){

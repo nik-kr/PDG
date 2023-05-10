@@ -26,11 +26,11 @@ public class Skeleton_lvl1 : Enemy
 
     public override void _Ready()
     {
+        GS = GetNode<Singletone>("/root/GlobalSingletone");
         animationSprite = GetNode<AnimatedSprite>("AnimatedSprite");
         MaxHealthPoint = 7 + (7/10)*GS.level; HealthPoint = MaxHealthPoint;
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         deathAnimName = "death";
-        GS = GetNode<Singletone>("/root/GlobalSingletone");
         HitTimer = GetNode<Timer>("HitTimer");
         HitTimer.WaitTime = hitTime;
         foreach(KinematicBody2D p in GetTree().GetNodesInGroup("player")){

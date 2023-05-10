@@ -6,8 +6,6 @@ public class GhostMonolith : Enemy
     [Export]
     public float summoningDeleay = 3;
 
-
-    private AnimatedSprite animSprite;
     private bool beDestroyed = false;
     private Singletone GS;
     private Timer timer;
@@ -16,10 +14,13 @@ public class GhostMonolith : Enemy
 
     public override void _Ready()
     {
+        GS = GetNode<Singletone>("/root/GlobalSingletone");
         timer = GetNode<Timer>("./Timer");
         timer.WaitTime = summoningDeleay;
-        GS = GetNode<Singletone>("/root/GlobalSingletone");
-        animSprite = GetNode<AnimatedSprite>("AnimatedSprite");
+        animSprite = GetNode<AnimatedSprite>("./AnimatedSprite");
+        aPlayerORaSprite = false;
+        deathSpriteAnim = "destroy";
+        killed = false;
         MaxHealthPoint = 50;
         HealthPoint = 50;
 
@@ -28,7 +29,11 @@ public class GhostMonolith : Enemy
     }
 
     public void _on_Timer_timeout(){
-        animSprite.Play("resurrection");
+        if(!enemyKilled){
+            animSprite.Play("resurrection");
+        }else{
+            timer.Stop();
+        }
     }
 
     public void _on_AnimatedSprite_animation_finished(){
@@ -44,16 +49,13 @@ public class GhostMonolith : Enemy
         }
     }
 
-    public void Death(){
-        beDestroyed = true;
-    }
-
-    public void TakeDamage(float damage){
-        if(damage >= HealthPoint){
-            HealthPoint -= HealthPoint;
-            animPlayer.Play("death");
-            Death();
-        }
-        HealthPoint -= damage;
-    }
+    // public override void TakeDamage(float damage){
+    //     base.TakeDamage(damage);
+    //     if(damage >= HealthPoint){
+    //         HealthPoint -= HealthPoint;
+    //         animSprite.Play("destroy");
+    //         beDestroyed = true;
+    //     }
+    //     HealthPoint -= damage;
+    // }
 }
