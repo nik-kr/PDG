@@ -4,19 +4,7 @@ public class Game : Node
 {
     private PackedScene pLevelNode = GD.Load<PackedScene>("res://Node/Level/Level.tscn");
     private Level levelScene = null;
-    private int _level;
-    private int level
-    {
-        get
-        {
-            return level;
-        }
-        set
-        {
-            _level = value;
-            GS.level = _level;
-        }
-    }
+    private int level;
 
     private Label FPS;
     private ProgressBar HPbar;
@@ -32,6 +20,7 @@ public class Game : Node
 
         FPS = GetNode<Label>("GUI/Control/Debug/FPS");
         HPbar = GetNode<ProgressBar>("GUI/Control/Bar/HPBar");
+        GS.task = GetNode<RichTextLabel>("GUI/Control/task");
         Inv = GetNode<Inventory>("GUI/Control/Inventory");
 
         level = GS.level;
@@ -77,6 +66,11 @@ public class Game : Node
 
     public void UpdateLevel()
     {
+        if(GS.gameRecord < GS.level){
+            GS.gameRecord = level;
+            GS.SaveCfg();
+        }
+        GetNode<AnimationPlayer>("AnimationPlayer").Play("Load");
         if (levelScene == null)
         {
             levelScene = pLevelNode.Instance<Level>();
@@ -88,7 +82,15 @@ public class Game : Node
             level += 1;
         }
         levelScene.LEVEL = GS.level;
-        AddChild(levelScene);
+        GetNode<Label>("GUI/Control/Label").Text = "LEVEL: " + GS.level.ToString();
+        if(level % 5 != 0){
+            AddChild(levelScene);
+            GS.task.Visible = false;
+        }else{
+            PackedScene pBoosRoom = (PackedScene)ResourceLoader.Load("res://Node/Level/BoosLevel1.tscn");
+            AddChild(pBoosRoom.Instance());
+            GS.task.Visible = true;
+        }
     }
 
 }
