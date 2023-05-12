@@ -13,7 +13,7 @@ public class Slime : Enemy
     [Export]
     public float hitTime = 2.5f;
     [Export]
-    public float damage = 1.5f;
+    public float damage = 1f;
 
 
 
@@ -37,6 +37,7 @@ public class Slime : Enemy
         GS = GetNode<Singletone>("/root/GlobalSingletone");
         animationSprite = GetNode<AnimatedSprite>("AnimatedSprite");
         MaxHealthPoint = 5 + (5/10) * GS.level; HealthPoint = MaxHealthPoint;
+        damage = 1f + (1f/2)*GS.level;
         deathAnimName = "death";
         HitTimer = GetNode<Timer>("HitTimer");
         HitTimer.WaitTime = hitTime;

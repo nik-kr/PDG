@@ -17,12 +17,16 @@ public class Singletone : Node
     public int level = 1;
     
     public PackedScene pGhostMonolith = (PackedScene)ResourceLoader.Load("res://Node/Enemy/GhostMonolith/GhostMonolith.tscn");
+    public PackedScene pBat           = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Bat/Bat.tscn");
+    public PackedScene pHPBoost       = (PackedScene)ResourceLoader.Load("res://Node/Boost/BoostHP.tscn");
+    public PackedScene pStrenghtBoost = (PackedScene)ResourceLoader.Load("res://Node/Boost/BoostStrenght.tscn");
 
     public PackedScene _PacWarrior = (PackedScene)ResourceLoader.Load("res://Node/Character/Warrior/Warrior.tscn");
     public String Character;
     public Player player = new Player();
 
     public CanvasLayer GUI;
+    public RichTextLabel task;
 
     public int TileSize = 16;
 
@@ -41,7 +45,7 @@ public class Singletone : Node
     public float Secrecy;
 
     //*GameSettings
-    public bool DebugMode = false;
+    public bool DebugMode = false;                  //Мод Отладки
     public ConfigFile config = new ConfigFile();    //Game Data
     public float masterVolume = 50;                 //Громкость
     public int difficult = 2;                       //Сложность игры
@@ -56,6 +60,7 @@ public class Singletone : Node
     //?Debug
     public Texture debugItemTexture = (Texture)GD.Load("res://Sprite/GameResources/Debug/DebugItem.png");
     public PackedScene debugItem_p = (PackedScene)GD.Load("res://Node/Items/DebugItem.tscn");
+    
 
     //** Save Config Settings and Function
     public string cfgPath = "./gameconfig.cfg";
@@ -116,9 +121,9 @@ public class Singletone : Node
     public void ChangeCharacter(String character){
         Character = character;
         if (Character == "Warrior"){
-            Strenght = 5;
-            MaxHealthPoint = 10;
-            HealthPoint = 10;
+            Strenght = 3;
+            MaxHealthPoint = 100;
+            HealthPoint = 100;
             MaxMana = 0;
             Manna = 0;
             MaxStamina = 5;

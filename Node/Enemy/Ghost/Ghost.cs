@@ -8,7 +8,7 @@ public class Ghost : Enemy
     [Export]
     public float hitTime = 3.5f;
     [Export]
-    public float damage = 0.5f;
+    public float damage;
 
     private Timer HitTimer;
     private KinematicBody2D Player = null;
@@ -29,6 +29,7 @@ public class Ghost : Enemy
         GS = GetNode<Singletone>("/root/GlobalSingletone");
 
         MaxHealthPoint = 3 + (3/10)*GS.level; HealthPoint = MaxHealthPoint;
+        damage = 0.5f + GS.level;
         animationSprite = GetNode<AnimatedSprite>("AnimatedSprite");
 
         HitTimer = GetNode<Timer>("HitTimer");

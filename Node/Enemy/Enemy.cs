@@ -36,6 +36,6 @@ public class Enemy : KinematicBody2D
             Death(animPlayer, deathAnimName);
         }
         HealthPoint -= damage;
-        GD.Print("Destroyed!");
+        GD.Print(damage.ToString() + ": Нанесено");
     }
 }

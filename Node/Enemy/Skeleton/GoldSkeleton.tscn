@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=2]
 
-[ext_resource path="res://Node/Enemy/Skeleton/Skeleton_lvl1.cs" type="Script" id=1]
+[ext_resource path="res://Node/Enemy/Skeleton/GoldSkeleton.cs" type="Script" id=1]
 [ext_resource path="res://Sprite/GameResources/Enemy/Skeleton/SkeletonRunUp3.png" type="Texture" id=2]
 [ext_resource path="res://Sprite/GameResources/Enemy/Skeleton/SkeletonStay1.png" type="Texture" id=3]
 [ext_resource path="res://Sprite/GameResources/Enemy/Skeleton/SkeletonRunDown2.png" type="Texture" id=4]
@@ -345,12 +345,13 @@ tracks/5/keys = {
 extents = Vector2( 3.5, 6.5 )
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 100.0
+radius = 282.0
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 10.0499
 
-[node name="Skeleton_lvl1" type="KinematicBody2D" groups=["enemy"]]
+[node name="GoldSkeleton" type="KinematicBody2D" groups=["enemy"]]
+modulate = Color( 1, 0.960784, 0.380392, 1 )
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -358,7 +359,7 @@ position = Vector2( 8, 8 )
 z_index = 1
 frames = SubResource( 8 )
 animation = "Stay"
-frame = 1
+frame = 2
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

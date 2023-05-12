@@ -8,7 +8,7 @@ public class Warrior : Player
     [Export]
     public float speed = 200;
     public Vector2 velocity = new Vector2();
-    public float HealthPoint = 5;
+    public float HealthPoint = 100;
 
     [Signal]
     delegate void giveDamageSignal(float damage);
@@ -21,11 +21,13 @@ public class Warrior : Player
 
     public override void _Ready()
     {
+        
         Connect("giveDamageSignal", this, "giveDamageCallback");
         foreach(Control c in GetTree().GetNodesInGroup("DebugMenu")){
             DebugMenu = c;
         }
         GS = GetNode<Singletone>("/root/GlobalSingletone");
+        HealthPoint = GS.HealthPoint;
         animatedSprite = GetNode<AnimatedSprite>("./AnimatedSprite");
     }
     public void giveDamageCallback(float damage){

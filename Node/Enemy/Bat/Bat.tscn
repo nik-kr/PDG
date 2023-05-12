@@ -17,15 +17,6 @@
 [ext_resource path="res://Sprite/GameResources/Enemy/Bat/BatBackword3.png" type="Texture" id=15]
 [ext_resource path="res://Node/Enemy/Bat/Bat.cs" type="Script" id=16]
 
-[sub_resource type="CircleShape2D" id=2]
-radius = 3.0
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 44.0454
-
-[sub_resource type="CircleShape2D" id=4]
-radius = 7.0
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 11 ), ExtResource( 10 ), ExtResource( 15 ), ExtResource( 4 ), ExtResource( 12 ) ],
@@ -44,8 +35,23 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Bat" type="KinematicBody2D"]
+[sub_resource type="CircleShape2D" id=2]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 44.0454
+
+[sub_resource type="CircleShape2D" id=4]
+
+[node name="Bat" type="KinematicBody2D" groups=["enemy"]]
 script = ExtResource( 16 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 8, 8 )
+frames = SubResource( 1 )
+animation = "forword"
+frame = 1
+playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
@@ -67,11 +73,11 @@ self_modulate = Color( 0.862745, 0.254902, 0.254902, 1 )
 position = Vector2( 7, 8 )
 shape = SubResource( 4 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 8, 8 )
-frames = SubResource( 1 )
-animation = "forword"
-frame = 4
-playing = true
+[node name="HitTimer" type="Timer" parent="."]
 
-[node name="Timer" type="Timer" parent="."]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="area_entered" from="DetectionZone" to="." method="_on_DetectionZone_area_entered"]
+[connection signal="area_exited" from="DetectionZone" to="." method="_on_DetectionZone_area_exited"]
+[connection signal="body_entered" from="HitArea" to="." method="_on_HitArea_body_entered"]
+[connection signal="body_exited" from="HitArea" to="." method="_on_HitArea_body_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]

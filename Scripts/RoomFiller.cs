@@ -7,9 +7,10 @@ public class RoomFiller : Node
     
     private Singletone GS = new Singletone();
     private NFunc NF = new NFunc();
+    private Random random = new Random();
 
-    public String []RoomType   = {"GHOST_SPAWNER", "DEFAULT_ROOM", "SPAUNER_ROOM", "BOSS_ROOM"};
-    public float  []Wights      = {0.2f, 0.80f, 0.0f, 0.0f};
+    public String []RoomType   = {"GHOST_SPAWNER", "DEFAULT_ROOM", "BAT_ROOM", "BOOST_ROOM", "EMPTY_ROOM", "END_ROOM"};
+    public float  []Wights     = {      10f,           60f,            15f,        500f,          10f,        0.001f};
 
     public override void _Ready(){
         GS = GetNode<Singletone>("/root/GlobalSingletone");
@@ -34,19 +35,37 @@ public class RoomFiller : Node
             GhostMonolith ghostMonolith  = GS.pGhostMonolith.Instance<GhostMonolith>();
             _Room.AddChild(ghostMonolith);
             ghostMonolith.GlobalPosition = new Vector2((Position1.x + Position2.x)/2, (Position1.y + Position2.y)/2);
-            GD.Print("Ghost Monolith created!");
-        }else if(GS.level%5 < 5){
+        }else if(_RoomType == "BAT_ROOM"){
+            String []batRoomDict = {"bat", "empty"};
+            float []_Weights     = { 20f,    200f};
+            for(int i = (int)Position1.x; i < Position2.x; i+= GS.TileSize){
+                for(int j = (int)Position1.y; j < Position2.y; j+= GS.TileSize){
+                    if(new NFunc().Choise(batRoomDict, _Weights) == "bat"){
+                        Bat bat = GS.pBat.Instance<Bat>();
+                        _Room.AddChild(bat);
+                        bat.GlobalPosition = new Vector2(i, j);
+                    }
+                }
+            }
+        }else if(_RoomType == "BOOST_ROOM"){ //BOOST ROOM
+            PackedScene []boosts = {GS.pHPBoost, GS.pStrenghtBoost};
+            PackedScene pBoost = boosts[random.Next(0, boosts.Length)];
+            Area2D boost = pBoost.Instance<Area2D>();
+            _Room.AddChild(boost);
+            boost.GlobalPosition = new Vector2((Position1.x + Position2.x)/2, (Position1.y + Position2.y)/2);
+        }else if(_RoomType == "DEFAULT_ROOM"){
             String []_Items = {"", "Chest", "Skeleton", "DebugItem", "Slime"};
-            float []_Weights = {0.98f, 0.000f, 0.06f, 0.00f, 0.05f};
+            float []_Weights = {1.5f, 0.000f, 0.06f, 0.00f, 0.05f};
+            if(GS.DebugMode){
+                _Weights[3] = 0.05f;
+            }
 
             Dictionary<String, PackedScene> Items = new Dictionary<String, PackedScene>(){
-                ["Chest"]       = (PackedScene)ResourceLoader.Load("res://Node/Chests/Wood_Chest/Wood_Chest.tscn"),
                 ["Skeleton"]    = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Skeleton/Skeleton_lvl1.tscn"),
-                ["DebugItem"]   = (PackedScene)ResourceLoader.Load("res://Node/Items/DebugItem.tscn"),
                 ["Slime"]       = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Slime/Slime.tscn")
             };
             
-            if(_RoomType == RoomType[1]){
+            if(_RoomType == "DEFAULT_ROOM"){
                 for(int i = (int)Position1.x; i < Position2.x; i+= GS.TileSize){
                     for(int j = (int)Position1.y; j < Position2.y; j+= GS.TileSize){
                         String _Item = new NFunc().Choise(_Items, _Weights);
@@ -57,17 +76,6 @@ public class RoomFiller : Node
                         }
                     }
                 }
-                // foreach(int i in GD.Range((int)Position1.x, (int)Position2.x, GS.TileSize)){
-                //     foreach(int j in GD.Range((int)Position1.y, (int)Position2.y, GS.TileSize)){
-                //         String _Item = new NFunc().Choise(_Items, _Weights);
-                //         if(_Item != ""){
-                //             var ToPlace = (Node2D)Items[_Item].Instance();
-                //             _Room.AddChild(ToPlace);
-                //             ToPlace.Position = new Vector2((int)i, (int)j);
-                //             GD.Print(ToPlace.Position);
-                //         }
-                //     }
-                // }
             }
         }
     }

@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-public class Skeleton_lvl1 : Enemy
+public class GoldSkeleton : Enemy
 {
     [Export]
-    public float speed = 120;
+    public float speed = 100;
     [Export]
     public float detectionRadius = 50;
     [Export]
@@ -28,8 +28,8 @@ public class Skeleton_lvl1 : Enemy
     {
         GS = GetNode<Singletone>("/root/GlobalSingletone");
         animationSprite = GetNode<AnimatedSprite>("AnimatedSprite");
-        MaxHealthPoint = 7 + (7/10)*GS.level; HealthPoint = MaxHealthPoint;
-        damage = 1.5f + (1.5f/2)*GS.level;
+        MaxHealthPoint = 10 + (10/10)*GS.level; HealthPoint = MaxHealthPoint;
+        damage = 2f + (2f/2)*GS.level;
         animPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         deathAnimName = "death";
         HitTimer = GetNode<Timer>("HitTimer");
