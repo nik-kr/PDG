@@ -7,14 +7,14 @@ public class Singletone : Node
 
 
     public int ghostCount = 0;
-    public int maxGhostCount = 50;
-
+    public int maxGhostCount = 1000000;
+    public bool endGame = false;
 
 
     public ProgressBar HPBar;
     public Inventory Inv;
-    public Level LevelNode;
-    public int level = 1;
+    public Node LevelNode = null;
+    public int level = 5;
     
     public PackedScene pGhostMonolith = (PackedScene)ResourceLoader.Load("res://Node/Enemy/GhostMonolith/GhostMonolith.tscn");
     public PackedScene pBat           = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Bat/Bat.tscn");
@@ -26,6 +26,10 @@ public class Singletone : Node
     public Player player = new Player();
 
     public CanvasLayer GUI;
+    public Game game;
+    public Control DeathScreen;
+    public Control PauseScreen;
+    public bool pauseMode = false;
     public RichTextLabel task;
 
     public int TileSize = 16;
@@ -138,7 +142,7 @@ public class Singletone : Node
 
     public override void _Ready()
     {
-        
+        ChangeCharacter("Warrior");
     }
     public override void _PhysicsProcess(float delta)
     {
@@ -146,10 +150,27 @@ public class Singletone : Node
     }
     public bool takeDamage(float damage){
         if(damage > HealthPoint){
-            HealthPoint -= HealthPoint;
+            pauseMode = true;
+            var newPauseState = !LevelNode.GetTree().Paused;
+            LevelNode.GetTree().Paused = newPauseState;
+            DeathScreen.Visible = true;
         }else{
             HealthPoint -= damage;
         }
         return true;
+    }
+    public void ChangePauseMode(Godot.Collections.Array array, PauseModeEnum pauseMode)
+    {
+        foreach (var element in array)
+        {
+            if (element is Godot.Collections.Array nestedArray)
+            {
+                ChangePauseMode(nestedArray, pauseMode);
+            }
+            else
+            {
+                ((Node)element).PauseMode = pauseMode;
+            }
+        }
     }
 }

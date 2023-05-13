@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Node/GUI/Inventory/Inventory.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/GameScene/Game.cs" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Resources/Character/WarriorRunRight3.png" type="Texture" id=4]
 [ext_resource path="res://Resources/Character/WarriorRunRight4.png" type="Texture" id=5]
 [ext_resource path="res://Resources/Character/WarriorRunRight1.png" type="Texture" id=6]
+[ext_resource path="res://Resources/Shaider/Bloor.tres" type="Material" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.717647, 0.313726, 0.313726, 1 )
@@ -40,6 +41,9 @@ bg_color = Color( 0.239216, 0.588235, 0.741176, 1 )
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.101961, 0.105882, 0.137255, 1 )
+
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="Animation" id=7]
 resource_name = "Load"
@@ -213,18 +217,23 @@ tracks/7/keys = {
 }
 
 [node name="Game" type="Node"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+pause_mode = 2
 color = Color( 0, 0, 0, 1 )
 
 [node name="GUI" type="CanvasLayer" parent="." groups=["GUI"]]
+pause_mode = 2
 
 [node name="Control" type="Control" parent="GUI"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="task" type="RichTextLabel" parent="GUI/Control"]
+pause_mode = 2
 visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -237,6 +246,7 @@ fit_content_height = true
 scroll_active = false
 
 [node name="Label" type="Label" parent="GUI/Control"]
+pause_mode = 2
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -76.0
@@ -248,6 +258,7 @@ align = 1
 valign = 1
 
 [node name="Bar" type="Control" parent="GUI/Control"]
+pause_mode = 2
 anchor_left = 0.666016
 anchor_right = 1.0
 anchor_bottom = 0.396667
@@ -256,6 +267,7 @@ __meta__ = {
 }
 
 [node name="HPBar" type="ProgressBar" parent="GUI/Control/Bar"]
+pause_mode = 2
 anchor_left = 0.5
 anchor_top = 0.0840336
 anchor_right = 0.950292
@@ -263,17 +275,18 @@ anchor_bottom = 0.243697
 custom_styles/fg = SubResource( 1 )
 custom_styles/bg = SubResource( 2 )
 value = 23.0
-percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="Debug" type="Control" parent="GUI/Control" groups=["DebugMenu"]]
+pause_mode = 2
 visible = false
 margin_right = 436.0
 margin_bottom = 238.0
 
 [node name="FPS" type="Label" parent="GUI/Control/Debug"]
+pause_mode = 2
 margin_left = 7.0
 margin_top = 6.0
 margin_right = 133.0
@@ -281,6 +294,7 @@ margin_bottom = 29.0
 text = "FPS: 1000"
 
 [node name="PlayerPosition" type="Label" parent="GUI/Control/Debug"]
+pause_mode = 2
 margin_left = 7.0
 margin_top = 43.0
 margin_right = 116.0
@@ -289,18 +303,22 @@ text = "X: 1000
 Y: 12345"
 
 [node name="Inventory" parent="GUI/Control" instance=ExtResource( 1 )]
+pause_mode = 2
 visible = false
 
 [node name="LoadScreen" type="Control" parent="GUI"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Panel" type="Panel" parent="GUI/LoadScreen"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 3 )
 
 [node name="Label" type="Label" parent="GUI/LoadScreen"]
+pause_mode = 2
 anchor_top = 0.097
 anchor_right = 1.0
 anchor_bottom = 0.17
@@ -310,18 +328,20 @@ align = 1
 valign = 1
 
 [node name="playerAnim" type="TextureRect" parent="GUI/LoadScreen"]
+pause_mode = 2
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -412.0
-margin_top = -98.0
-margin_right = -331.0
-margin_bottom = -15.0001
+margin_left = 100.0
+margin_top = 202.0
+margin_right = 181.0
+margin_bottom = 285.0
 texture = SubResource( 4 )
 stretch_mode = 6
 
 [node name="ProgressBar" type="ProgressBar" parent="GUI/LoadScreen"]
+pause_mode = 2
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -335,6 +355,114 @@ custom_styles/fg = SubResource( 5 )
 custom_styles/bg = SubResource( 6 )
 percent_visible = false
 
+[node name="DeathScreen" type="Control" parent="GUI"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="GUI/DeathScreen"]
+pause_mode = 2
+self_modulate = Color( 0.509804, 0.509804, 0.509804, 1 )
+material = ExtResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 9 )
+
+[node name="Label" type="Label" parent="GUI/DeathScreen/Panel"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -194.0
+margin_right = 117.0
+margin_bottom = -168.0
+text = "Подземелье не пройдено"
+align = 1
+
+[node name="Button" type="Button" parent="GUI/DeathScreen"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -106.0
+margin_right = 117.0
+margin_bottom = -74.0
+text = "Спуститься занаво"
+
+[node name="Button2" type="Button" parent="GUI/DeathScreen"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.0
+margin_top = -62.0
+margin_right = 116.0
+margin_bottom = -30.0
+text = "В главное меню"
+
+[node name="PauseScreen" type="Control" parent="GUI"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Panel" type="Panel" parent="GUI/PauseScreen"]
+pause_mode = 2
+self_modulate = Color( 0.509804, 0.509804, 0.509804, 1 )
+material = ExtResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 9 )
+
+[node name="Label" type="Label" parent="GUI/PauseScreen/Panel"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -194.0
+margin_right = 117.0
+margin_bottom = -168.0
+text = "Пауза"
+align = 1
+
+[node name="Button" type="Button" parent="GUI/PauseScreen"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -106.0
+margin_right = 117.0
+margin_bottom = -74.0
+text = "Продолжить"
+
+[node name="Button2" type="Button" parent="GUI/PauseScreen"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -126.0
+margin_top = -62.0
+margin_right = 116.0
+margin_bottom = -30.0
+text = "В главное меню"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+pause_mode = 2
 anims/Load = SubResource( 7 )
 anims/RESET = SubResource( 8 )
+
+[connection signal="pressed" from="GUI/DeathScreen/Button" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="GUI/DeathScreen/Button2" to="." method="_on_MainMenu_pressed"]
+[connection signal="pressed" from="GUI/PauseScreen/Button" to="." method="_on_Unpaused_pressed"]
+[connection signal="pressed" from="GUI/PauseScreen/Button2" to="." method="_on_MainMenu_pressed"]

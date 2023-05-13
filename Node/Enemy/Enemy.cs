@@ -3,6 +3,7 @@ using System;
 
 public class Enemy : KinematicBody2D
 {
+    private Singletone GS;
     public float HealthPoint;
     public float MaxHealthPoint;
 
@@ -15,6 +16,10 @@ public class Enemy : KinematicBody2D
     public AnimatedSprite animSprite = null;
     public String deathSpriteAnim = null;
     
+    public override void _Ready(){
+        GS = GetNode<Singletone>("/root/GlobalSingletone");
+    }
+
     public virtual async void Death(AnimationPlayer aPlayer = null, String aName = null){
         if(aPlayer != null && aName != null && aPlayerORaSprite == true){
             await ToSignal(aPlayer, "animation_finished");
@@ -28,14 +33,17 @@ public class Enemy : KinematicBody2D
     }
 
     public virtual void TakeDamage(float damage){
-        if(damage >= HealthPoint){
-            HealthPoint -= HealthPoint;
-            if(animPlayer != null){
-                animPlayer.Play("death");
+        if(GS.pauseMode == false)
+        {
+            if(damage >= HealthPoint){
+                HealthPoint -= HealthPoint;
+                if(animPlayer != null){
+                    animPlayer.Play("death");
+                }
+                Death(animPlayer, deathAnimName);
             }
-            Death(animPlayer, deathAnimName);
+            HealthPoint -= damage;
+            GD.Print(damage.ToString() + ": Нанесено");
         }
-        HealthPoint -= damage;
-        GD.Print(damage.ToString() + ": Нанесено");
     }
 }

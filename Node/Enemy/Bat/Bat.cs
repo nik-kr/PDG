@@ -39,7 +39,7 @@ public class Bat : Enemy
         }
     }
     public override void _PhysicsProcess(float delta){
-        if(_Footprint != null){
+        if(_Footprint != null && GS.pauseMode == false){
             direction = GlobalPosition.DirectionTo(_Footprint.GlobalPosition);
             Vector2 desiredVelocity = direction * speed;
             Vector2 steering = (desiredVelocity - velocity) * delta * 4f;

@@ -69,9 +69,11 @@ public class Warrior : Player
 
     public override void _PhysicsProcess(float delta)
     {
-        GetInput();
-        if(velocity == new Vector2(0, 0)){
-            animatedSprite.Play("Stay");
+        if(GS.pauseMode == false){
+            GetInput();
+            if(velocity == new Vector2(0, 0)){
+                animatedSprite.Play("Stay");
+            }
         }
 
         velocity = MoveAndSlide(velocity);

@@ -45,7 +45,7 @@ public class Ghost : Enemy
     }
 
     public override void _PhysicsProcess(float delta){
-        if(GS.player != null){
+        if(GS.player != null && GS.pauseMode == false){
             direction = GlobalPosition.DirectionTo(GS.player.GlobalPosition);
             Vector2 desiredVelocity = direction * speed;
             Vector2 steering = (desiredVelocity - velocity) * delta * 4f;

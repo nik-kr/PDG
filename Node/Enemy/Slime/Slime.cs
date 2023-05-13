@@ -46,7 +46,7 @@ public class Slime : Enemy
         }
     }
     public override void _PhysicsProcess(float delta){
-        if(_Footprint != null){
+        if(_Footprint != null && GS.pauseMode == false){
             direction = GlobalPosition.DirectionTo(_Footprint.GlobalPosition);
             if(doJump){
                 speed  = jumpSpeed;

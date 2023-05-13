@@ -3,7 +3,8 @@ using Godot;
 public class Game : Node
 {
     private PackedScene pLevelNode = GD.Load<PackedScene>("res://Node/Level/Level.tscn");
-    private Level levelScene = null;
+    private PackedScene MainMenu = GD.Load<PackedScene>("res://Scene/MainMenu/MainMenu.tscn");
+    private Node levelScene = null;
     private int level;
 
     private Label FPS;
@@ -25,9 +26,12 @@ public class Game : Node
 
         level = GS.level;
 
+        GS.game = this;
         GS.Inv = Inv;
         GS.HPBar = HPbar;
         GS.GUI = GetNode<CanvasLayer>("GUI");
+        GS.PauseScreen = GetNode<Control>("GUI/PauseScreen");
+        GS.DeathScreen = GetNode<Control>("GUI/DeathScreen");
         UpdateLevel();
     }
 
@@ -52,7 +56,21 @@ public class Game : Node
                     break;
             }
         }
-
+        if(Input.IsActionJustPressed("ui_cancel")){
+            if(!GS.endGame){
+                if(GS.PauseScreen.Visible == false){
+                    GS.pauseMode = true;
+                    var newPauseState = !levelScene.GetTree().Paused;
+                    levelScene.GetTree().Paused = newPauseState;
+                    GS.PauseScreen.Visible = true;
+                }else{
+                    GS.pauseMode = false;
+                    var newPauseState = !levelScene.GetTree().Paused;
+                    levelScene.GetTree().Paused = newPauseState;
+                    GS.PauseScreen.Visible = false;
+                }
+            }
+        }
     }
 
     public override void _PhysicsProcess(float delta)
@@ -81,16 +99,45 @@ public class Game : Node
             levelScene = pLevelNode.Instance<Level>();
             level += 1;
         }
-        levelScene.LEVEL = GS.level;
-        GetNode<Label>("GUI/Control/Label").Text = "LEVEL: " + GS.level.ToString();
         if(level % 5 != 0){
             AddChild(levelScene);
             GS.task.Visible = false;
         }else{
             PackedScene pBoosRoom = (PackedScene)ResourceLoader.Load("res://Node/Level/BoosLevel1.tscn");
-            AddChild(pBoosRoom.Instance());
+            levelScene = pBoosRoom.Instance<Node>();
+            AddChild(levelScene);
             GS.task.Visible = true;
         }
+        GS.ChangePauseMode(levelScene.GetChildren(), PauseModeEnum.Inherit);
+        GS.LevelNode = levelScene;
+        GetNode<Label>("GUI/Control/Label").Text = "LEVEL: " + GS.level.ToString();
+    }
+    public void rmLevel(){
+        levelScene.QueueFree();
+        GS.ChangeCharacter("Warrior");
+        GS.HealthPoint = GS.MaxHealthPoint;
+        GS.level = 1;
+        GS.DeathScreen.Visible = false;
+        UpdateLevel();
+        GS.pauseMode = false;
+        var newPauseState = !levelScene.GetTree().Paused;
+        levelScene.GetTree().Paused = newPauseState;
+    }
+
+
+    public void _on_NewGame_pressed(){
+        rmLevel();
+    }
+
+    public void _on_MainMenu_pressed(){
+        GetTree().ChangeSceneTo(MainMenu);
+    }
+
+    public void _on_Unpaused_pressed(){
+        GS.pauseMode = false;
+        var newPauseState = !levelScene.GetTree().Paused;
+        levelScene.GetTree().Paused = newPauseState;
+        GS.PauseScreen.Visible = false;
     }
 
 }

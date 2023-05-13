@@ -40,10 +40,10 @@ public class GhostMonolith : Enemy
         if(animSprite.Animation == "resurrection"){
             timer.Start();
             animSprite.Play("default");
-            if(GS.ghostCount < GS.maxGhostCount){
+            if(GS.ghostCount < GS.maxGhostCount && GS.pauseMode == false){
                 Ghost ghost = pGhost.Instance<Ghost>();
                 ghost.Position = this.Position;
-                this.AddChild(ghost);
+                AddChild(ghost);
             }
             GS.ghostCount += 1;
         }
