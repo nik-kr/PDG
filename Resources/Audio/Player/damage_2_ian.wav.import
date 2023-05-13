@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/damage_2_ian.wav-f29745ad4e21ce8b5c6919a441ac55bb.sample"
+
+[deps]
+
+source_file="res://Resources/Audio/Player/damage_2_ian.wav"
+dest_files=[ "res://.import/damage_2_ian.wav-f29745ad4e21ce8b5c6919a441ac55bb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

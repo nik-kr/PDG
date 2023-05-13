@@ -6,9 +6,16 @@ public class Warrior : Player
     [Export]
     public String NodeType = "Player";
     [Export]
-    public float speed = 200;
+    public float speed = 180;
     public Vector2 velocity = new Vector2();
     public float HealthPoint = 100;
+
+    [Export]
+    public AudioStreamSample aDamage;
+    [Export]
+    public AudioStreamSample aTakeDamage;
+
+    public AudioStreamPlayer audio;
 
     [Signal]
     delegate void giveDamageSignal(float damage);
@@ -27,6 +34,8 @@ public class Warrior : Player
             DebugMenu = c;
         }
         GS = GetNode<Singletone>("/root/GlobalSingletone");
+        audio = GetNode<AudioStreamPlayer>("AudioStreamPlayer2D");
+        GS.aPlayer = audio;
         HealthPoint = GS.HealthPoint;
         animatedSprite = GetNode<AnimatedSprite>("./AnimatedSprite");
     }

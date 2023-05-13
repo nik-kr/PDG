@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Node/GUI/Inventory/Inventory.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/GameScene/Game.cs" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Resources/Character/WarriorRunRight4.png" type="Texture" id=5]
 [ext_resource path="res://Resources/Character/WarriorRunRight1.png" type="Texture" id=6]
 [ext_resource path="res://Resources/Shaider/Bloor.tres" type="Material" id=7]
+[ext_resource path="res://Resources/Audio/8bit Small Town - Theme Song.wav" type="AudioStream" id=8]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.717647, 0.313726, 0.313726, 1 )
@@ -462,7 +463,11 @@ pause_mode = 2
 anims/Load = SubResource( 7 )
 anims/RESET = SubResource( 8 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
 [connection signal="pressed" from="GUI/DeathScreen/Button" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="GUI/DeathScreen/Button2" to="." method="_on_MainMenu_pressed"]
 [connection signal="pressed" from="GUI/PauseScreen/Button" to="." method="_on_Unpaused_pressed"]
 [connection signal="pressed" from="GUI/PauseScreen/Button2" to="." method="_on_MainMenu_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

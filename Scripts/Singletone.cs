@@ -14,7 +14,7 @@ public class Singletone : Node
     public ProgressBar HPBar;
     public Inventory Inv;
     public Node LevelNode = null;
-    public int level = 5;
+    public int level = 1;
     
     public PackedScene pGhostMonolith = (PackedScene)ResourceLoader.Load("res://Node/Enemy/GhostMonolith/GhostMonolith.tscn");
     public PackedScene pBat           = (PackedScene)ResourceLoader.Load("res://Node/Enemy/Bat/Bat.tscn");
@@ -24,6 +24,7 @@ public class Singletone : Node
     public PackedScene _PacWarrior = (PackedScene)ResourceLoader.Load("res://Node/Character/Warrior/Warrior.tscn");
     public String Character;
     public Player player = new Player();
+    public AudioStreamPlayer aPlayer;
 
     public CanvasLayer GUI;
     public Game game;
@@ -80,6 +81,7 @@ public class Singletone : Node
         config.SetValue("KeyBind", "ui_right", InputMap.GetActionList("ui_right")[0]);
 
         config.SetValue("Sound", "volume", masterVolume);
+        AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"),-80f + masterVolume*80/100);
         config.SetValue("GameSetting", "difficult", difficult);
 
         config.SetValue("Other", "gameRecord", gameRecord);
@@ -98,6 +100,7 @@ public class Singletone : Node
             keyUiLeft    = (InputEventKey)config.GetValue("KeyBind", "ui_left");
             keyUiRight   = (InputEventKey)config.GetValue("KeyBind", "ui_right");
             masterVolume = (float)config.GetValue("Sound", "volume", 50f);
+            AudioServer.SetBusVolumeDb(AudioServer.GetBusIndex("Master"),-80f + masterVolume*80/100);
             difficult    = (int)config.GetValue("GameSetting", "difficult", 2);
             gameRecord   = (int)config.GetValue("Other", "gameRecord");
             

@@ -6,7 +6,7 @@ public class Weapon : Area2D
     private AnimationPlayer animPlayer;
     public String attackAnim;
 
-    private bool doAttack = true;
+    public bool doAttack = true;
 
     public AnimationPlayer AnimPlayer{
         get

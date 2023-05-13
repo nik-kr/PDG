@@ -3,7 +3,6 @@ using System;
 
 public class Enemy : KinematicBody2D
 {
-    private Singletone GS;
     public float HealthPoint;
     public float MaxHealthPoint;
 
@@ -17,7 +16,6 @@ public class Enemy : KinematicBody2D
     public String deathSpriteAnim = null;
     
     public override void _Ready(){
-        GS = GetNode<Singletone>("/root/GlobalSingletone");
     }
 
     public virtual async void Death(AnimationPlayer aPlayer = null, String aName = null){
@@ -33,7 +31,7 @@ public class Enemy : KinematicBody2D
     }
 
     public virtual void TakeDamage(float damage){
-        if(GS.pauseMode == false)
+        if(GetNode<Singletone>("/root/GlobalSingletone").pauseMode == false)
         {
             if(damage >= HealthPoint){
                 HealthPoint -= HealthPoint;

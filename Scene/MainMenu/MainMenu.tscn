@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scene/MainMenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Resources/GUI/DungeonWall.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Resources/Character/WarriorStay4.png" type="Texture" id=6]
 [ext_resource path="res://Resources/Shaider/TilingAndOffset.gdshader" type="Shader" id=7]
 [ext_resource path="res://Node/GUI/GlowButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Node/GUI/Inventory/Inventory.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 7 )
@@ -327,6 +328,12 @@ text = "Рекордный уровень: 0"
 align = 1
 valign = 1
 uppercase = true
+
+[node name="Inventory" parent="." instance=ExtResource( 9 )]
+visible = false
+
+[node name="Inventory" parent="Inventory" instance=ExtResource( 9 )]
+visible = false
 
 [connection signal="pressed" from="Background/imgPlayer1" to="Background" method="_on_imgPlayer1_pressed"]
 [connection signal="pressed" from="Background/imgPlayer2" to="Background" method="_on_imgPlayer2_pressed"]

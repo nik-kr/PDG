@@ -14,11 +14,17 @@ public class Game : Node
 
     private bool isInvOpen = false;
 
+    [Export]
+    public AudioStreamSample ALVLUp;
+
+    public void _on_AudioStreamPlayer_finished(){
+        GetNode<AudioStreamPlayer>("AudioStreamPlayer").Play();
+    }
 
     public override void _Ready()
     {
         GS = GetNode<Singletone>("/root/GlobalSingletone");
-
+        GetNode<AudioStreamPlayer>("AudioStreamPlayer").Play();
         FPS = GetNode<Label>("GUI/Control/Debug/FPS");
         HPbar = GetNode<ProgressBar>("GUI/Control/Bar/HPBar");
         GS.task = GetNode<RichTextLabel>("GUI/Control/task");
@@ -127,10 +133,18 @@ public class Game : Node
 
     public void _on_NewGame_pressed(){
         rmLevel();
+        GS.pauseMode = false;
+        var newPauseState = !levelScene.GetTree().Paused;
+        levelScene.GetTree().Paused = newPauseState;
+        GS.PauseScreen.Visible = false;
     }
 
     public void _on_MainMenu_pressed(){
         GetTree().ChangeSceneTo(MainMenu);
+        GS.pauseMode = false;
+        var newPauseState = !levelScene.GetTree().Paused;
+        levelScene.GetTree().Paused = newPauseState;
+        GS.PauseScreen.Visible = false;
     }
 
     public void _on_Unpaused_pressed(){

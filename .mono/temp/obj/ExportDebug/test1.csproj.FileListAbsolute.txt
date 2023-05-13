@@ -1,0 +1,9 @@
+/home/nekiuriti/.project/godot/PDG/.mono/temp/bin/ExportDebug/test1.dll
+/home/nekiuriti/.project/godot/PDG/.mono/temp/bin/ExportDebug/test1.pdb
+/home/nekiuriti/.project/godot/PDG/.mono/temp/obj/ExportDebug/test1.csproj.AssemblyReference.cache
+/home/nekiuriti/.project/godot/PDG/.mono/temp/obj/ExportDebug/test1.GeneratedMSBuildEditorConfig.editorconfig
+/home/nekiuriti/.project/godot/PDG/.mono/temp/obj/ExportDebug/test1.AssemblyInfoInputs.cache
+/home/nekiuriti/.project/godot/PDG/.mono/temp/obj/ExportDebug/test1.AssemblyInfo.cs
+/home/nekiuriti/.project/godot/PDG/.mono/temp/obj/ExportDebug/test1.csproj.CoreCompileInputs.cache
+/home/nekiuriti/.project/godot/PDG/.mono/temp/obj/ExportDebug/test1.dll
+/home/nekiuriti/.project/godot/PDG/.mono/temp/obj/ExportDebug/test1.pdb
