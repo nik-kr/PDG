@@ -17,8 +17,8 @@
 
 - Языки программирования: C#, GDScript
 - Версия Godot Engine: 3.x.x
-- Автор: Крючков Никита Павлович (Nekiuriti)
-- Контактная информация: [Telegram](https://t.me/I_am_not_human)
+- Автор: Крючков.Н.П (Nekiuriti)
+- Контактная информация: [Telegram](https://t.me/I_am_not_human), [ВКонтакте](https://vk.com/nik_kruch)
 
 ## Инструкции по компиляции из исходгных кодов
 
